@@ -23,42 +23,46 @@ db.once("open", () => console.log("✅ Connected to MongoDB Atlas"));
 
 // Schema
 const responseSchema = new mongoose.Schema({
-  q1: Number,
-  q2: Number,
-  q3: Number,
-  q4: Number,
-  q5: Number,
-  q6: Number,
-  q7: Number,
-  q8: Number,
-  q9: Number,
-  createdAt: { type: Date, default: Date.now },
-});
-const Response = mongoose.model("Response", responseSchema);
-
-// Schema สำหรับข้อมูลแบบใหม่ (personalInfo + results)
-const surveySchema = new mongoose.Schema({
   personalInfo: {
     nickname: String,
     age: String,
     gender: String,
     occupation: String
   },
-  results: mongoose.Schema.Types.Mixed, // รองรับผลประเมินทุกรูปแบบ
-  createdAt: { type: Date, default: Date.now },
+  results: mongoose.Schema.Types.Mixed,
+  createdAt: { type: Date, default: Date.now }
 });
-const Survey = mongoose.model("Survey", surveySchema);
-
+const Response = mongoose.model("surveys", responseSchema);
 // Route
-app.post("/submit", async (req, res) => {
+app.post('/submit', async (req, res) => {
   try {
-    const newSurvey = new Survey(req.body);
-    await newSurvey.save();
-    res.status(200).json({ message: "✅ ส่งข้อมูลเรียบร้อยแล้ว" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "❌ เกิดข้อผิดพลาด", error });
+    let result;
+    if (req.body._id) {
+      // อัปเดต record เดิม
+      result = await Response.findByIdAndUpdate(
+        req.body._id,
+        { $set: { personalInfo: req.body.personalInfo, results: req.body.results } },
+        { new: true }
+      );
+      res.json({ success: true, _id: result._id });
+    } else {
+      // สร้างใหม่
+      const submission = new Response(req.body);
+      await submission.save();
+      res.json({ success: true, insertedId: submission._id });
+    }
+  } catch (err) {
+    console.error('❌ Error saving data:', err);
+    res.status(500).json({ success: false, error: err.message });
   }
+});
+
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(PORT, () => {
