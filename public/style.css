@@ -93,6 +93,8 @@ body {
   position: static;
   padding-bottom: 0;
   min-height: unset;
+  max-width: 520px;
+  width: 100%;
 }
 
 .question-text {
@@ -107,7 +109,10 @@ body {
 
 .form-input {
   width: 100%;
+  max-width: 340px;
   padding: 12px 15px;
+  padding-left: 16px;
+  padding-right: 16px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   font-size: 1rem;
@@ -115,6 +120,13 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   transition: all 0.3s ease;
   margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 220px;
+  min-height: 48px;
+  height: 48px;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -136,6 +148,12 @@ select.form-input {
   flex-direction: column;
   gap: 12px;
   margin-bottom: 25px;
+  max-width: 340px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .option-btn {
@@ -149,6 +167,14 @@ select.form-input {
   transition: all 0.3s ease;
   text-align: center;
   font-family: 'Prompt', sans-serif;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .option-btn:hover {
@@ -176,10 +202,22 @@ select.form-input {
   border: 1px solid #add8e6;
   padding: 15px 20px;
   border-radius: 12px;
-  font-size: 1.1rem;
+  font-size: 0.98rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feeling-option[data-value="3"] {
+  font-size: 0.76rem;
 }
 
 .feeling-option:hover {
@@ -207,6 +245,14 @@ select.form-input {
   border-radius: 10px;
   padding: 12px 15px;
   transition: all 0.3s ease;
+  min-width: 220px;
+  max-width: 340px;
+  width: 100%;
+  min-height: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .checkbox-option:hover {
@@ -226,6 +272,8 @@ select.form-input {
   color: #444;
   cursor: pointer;
   flex-grow: 1;
+  width: 100%;
+  text-align: left;
 }
 
 .nav-buttons {
@@ -354,8 +402,12 @@ select.form-input {
   margin: 20px 0;
 }
 
+.result-score#st5-score, .result-score#st5-honest-score {
+  font-size: 1.4rem !important;
+}
+
 .result-message {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: #444;
   margin-bottom: 30px;
   line-height: 1.8;
@@ -510,66 +562,62 @@ select.form-input {
   word-break: break-word;
 }
 
-@media (max-width: 600px) {
-  #start-btn {
-    width: 60vw !important;
-    min-width: 0 !important;
-    max-width: 100vw !important;
-    font-size: 1rem !important;
-    padding: 18px 0 !important;
-    border-radius: 16px !important;
-    white-space: normal !important;
-  }
-  .sub-container {
-    max-width: 99%;
-    padding: 16px 4px 16px 4px;
-    border-radius: 10px;
-    margin: 12px auto 12px auto;
-  }
-  .container, .sub-container {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
-    min-height: 100vh !important;
-    height: 100vh !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-  }
-  .nav-buttons {
-    height: 60px !important;
-    min-height: 60px !important;
-  }
-  .result-summary {
-    padding: 14px 2vw 12px 2vw;
-    max-width: 99vw;
-    border-radius: 12px;
-  }
-  .result-summary h2 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-  .result-section {
-    padding: 10px 6px 8px 6px;
-    border-radius: 8px;
-  }
-  .result-section h3 {
-    font-size: 1rem;
-  }
-  .result-section p {
-    font-size: 0.95rem;
-  }
+/* จัดข้อความในหน้า final-result-page ให้อยู่ตรงกลาง */
+#final-result-page .question-container {
+  text-align: center;
+}
+#final-result-content {
+  text-align: center;
+}
+#final-result-page .result-section {
+  text-align: center;
+}
+#final-result-page .help-contacts {
+  text-align: center;
+}
+#final-result-page .quote {
+  text-align: center;
 }
 
-@media (max-width: 400px) {
-  .result-summary {
-    padding: 6px 1vw 6px 1vw;
-    border-radius: 8px;
-  }
-  .result-section {
-    padding: 6px 2px 6px 2px;
-    border-radius: 6px;
+/* ปรับ layout เฉพาะหน้า 9q-honest-result-page ให้เหมือนหน้าขอบคุณอื่นๆ */
+#9q-honest-result-page .sub-container {
+  background: #fff !important;
+  max-width: 420px;
+  width: 96vw;
+  margin: 32px auto;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(52,152,219,0.10), 0 1.5px 6px 0 rgba(44,62,80,0.08);
+  padding: 28px 18px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: unset;
+  height: unset;
+}
+#9q-honest-result-page .question-container {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+#9q-honest-result-page .result-score,
+#9q-honest-result-page .result-message {
+  text-align: center;
+  width: 100%;
+}
+#9q-honest-result-page .nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+@media (max-width: 600px) {
+  #9q-honest-result-page .sub-container {
+    max-width: 99vw;
+    padding: 16px 4px;
+    border-radius: 10px;
+    margin: 12px auto;
   }
 }
 
@@ -706,6 +754,6 @@ select.form-input {
   }
   
   .result-message {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 }
