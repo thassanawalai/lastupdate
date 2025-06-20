@@ -1,0 +1,27 @@
+{
+  "name": "mental-health-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "��#\u0000 \u0000N\u0000u\u0000r\u0000s\u0000e\u0000\r\u0000 \u0000",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.0",
+    "nodemon": "^3.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thassanawalai/Nurse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thassanawalai/Nurse/issues"
+  },
+  "homepage": "https://github.com/thassanawalai/Nurse#readme"
+}
