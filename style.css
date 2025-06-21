@@ -452,8 +452,8 @@ select.form-input {
 
 .music-control {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border-radius: 50%;
@@ -478,28 +478,61 @@ select.form-input {
   left: 50%;
   bottom: 30px;
   transform: translateX(-50%);
-  width: 95%;
+  width: 100%;
   min-width: 350px;
-  max-width: 500px;
+  max-width: 900px;
   margin: 50px auto 0 auto;
   display: block;
-  padding: 10px 0;
-  font-size: 0.9rem;
+  padding: 18px 0;
+  font-size: 1.15rem;
   border-radius: 18px;
   font-weight: 600;
   letter-spacing: 0em;
   white-space: nowrap;
+  text-align: center;
   box-shadow: 0 2px 8px rgba(90,155,213,0.08);
   z-index: 2;
   background: var(--primary-color);
   color: #fff;
   border: none;
   transition: background 0.2s, transform 0.2s;
+  line-height: 1.6;
 }
 
 #start-btn:hover {
   background: var(--accent-color);
   transform: translateX(-50%) scale(1.05);
+}
+
+@media (max-width: 900px) {
+  #start-btn {
+    width: 99vw;
+    min-width: 220px;
+    max-width: 99vw;
+    padding: 16px 0;
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #start-btn {
+    width: 99vw;
+    min-width: 160px;
+    max-width: 99vw;
+    padding: 14px 0;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #start-btn {
+    width: 99vw;
+    min-width: 100px;
+    max-width: 99vw;
+    padding: 10px 0;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
 }
 
 .sub-container {
@@ -623,121 +656,142 @@ select.form-input {
 
 /* Responsive Design */
 @media (max-width: 900px) {
-   #start-btn {
-    width: fit-content;
-    padding: 12px 24px; /* เพิ่มความกว้างรอบตัวอักษรให้ดูสมดุล */
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+  #start-btn {
+    width: 99vw;
+    min-width: 220px;
+    max-width: 99vw;
+    padding: 16px 0;
+    font-size: 1.05rem;
   }
   .container {
-    padding: 30px 10px 80px 10px;
-    margin: 15px auto;
-    border-radius: 18px;
+    padding: 24px 8px 80px 8px;
+    margin: 12px auto;
+    border-radius: 16px;
   }
   .header h1 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-top: 18px;
   }
   .welcome-message {
-    font-size: 0.98rem;
-    margin-bottom: 22px;
+    font-size: 1.05rem;
+    margin-bottom: 18px;
   }
   .question-text {
-    font-size: 0.98rem;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    font-size: 1.05rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   .form-input {
-    font-size: 0.98rem;
+    font-size: 1.05rem;
+    min-width: 160px;
   }
   .nav-btn {
     min-width: 110px !important;
-    max-width: 140px !important;
+    max-width: 160px !important;
     width: 120px !important;
-    font-size: 0.95rem !important;
+    font-size: 1rem !important;
     padding: 10px 0 !important;
   }
 }
 
 @media (max-width: 768px) {
-   #start-btn {
-    width: fit-content;
-    padding: 12px 24px; /* เพิ่มความกว้างรอบตัวอักษรให้ดูสมดุล */
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+  #start-btn {
+    width: 99vw;
+    min-width: 160px;
+    max-width: 99vw;
+    padding: 14px 0;
+    font-size: 0.95rem;
   }
   .container {
-    width: 95%;
-    padding: 20px;
-  }
-  .header h1 {
-    font-size: 1.8rem;
-  }
-  .question-text {
-    font-size: 1.1rem;
-  }
-  
-  .form-input, .option-btn {
-    font-size: 1rem;
-  }
-  
-  .welcome-icon i {
-    font-size: 60px;
-  }
-  
-  .welcome-message {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 18px 4px 60px 4px;
-    margin: 8px auto;
+    width: 98vw;
+    padding: 12px 2vw;
     border-radius: 12px;
   }
   .header h1 {
-    font-size: 1.1rem;
-    margin-top: 10px;
-  }
-  .welcome-message {
-    font-size: 0.92rem;
-    margin-bottom: 14px;
+    font-size: 1.2rem;
   }
   .question-text {
-    font-size: 0.92rem;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    font-size: 1rem;
   }
-  .form-input {
-    font-size: 0.92rem;
+  .form-input, .option-btn {
+    font-size: 0.98rem;
+    min-width: 120px;
   }
-  .nav-btn {
-    min-width: 110px !important;
-    max-width: 140px !important;
-    width: 120px !important;
-    font-size: 0.95rem !important;
-    padding: 10px 0 !important;
+  .welcome-icon i {
+    font-size: 48px;
+  }
+  .welcome-message {
+    font-size: 1rem;
+  }
+  .music-control {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 15px;
-    margin: 15px auto;
-    border-radius: 20px;
+    padding: 8px 2vw 60px 2vw;
+    margin: 6px auto;
+    border-radius: 10px;
+    width: 99vw;
   }
-  
   .header h1 {
-    font-size: 1.5rem;
+    font-size: 1rem;
+    margin-top: 6px;
   }
-  
-  .subtitle {
+  .welcome-message {
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+  }
+  .question-text {
+    font-size: 0.92rem;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .form-input {
+    font-size: 0.92rem;
+    min-width: 90px;
+    padding: 10px 8px;
+  }
+  .nav-btn {
+    min-width: 90px !important;
+    max-width: 120px !important;
+    width: 100px !important;
+    font-size: 0.92rem !important;
+    padding: 8px 0 !important;
+  }
+  .music-control {
+    top: 8px;
+    right: 8px;
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .result-score {
+    font-size: 2rem;
+  }
+  .result-message {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 6px;
+    margin: 6px auto;
+    border-radius: 10px;
+    width: 99vw;
+  }
+  .header h1 {
     font-size: 1rem;
   }
-  
+  .subtitle {
+    font-size: 0.95rem;
+  }
   .nav-buttons {
     flex-direction: row !important;
     justify-content: space-between;
@@ -745,26 +799,24 @@ select.form-input {
     width: 100vw;
     left: 0;
     right: 0;
-    bottom: 8px;
-    padding: 0 4vw;
+    bottom: 4px;
+    padding: 0 2vw;
     position: fixed;
     z-index: 20;
-    height: 60px;
-    min-height: 60px;
+    height: 54px;
+    min-height: 54px;
   }
-  
   .nav-btn {
     width: 4vw !important;
-    min-width: 100px !important;
-    max-width: 200px !important;
+    min-width: 80px !important;
+    max-width: 120px !important;
     margin: 0 !important;
+    font-size: 0.9rem !important;
   }
-  
   .result-score {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
-  
   .result-message {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }

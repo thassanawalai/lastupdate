@@ -239,6 +239,10 @@ const pageManager = {
       const id = btn.id;
       if (!id) return;
       
+      // เล่นเพลงเมื่อกดปุ่ม start-btn
+      if (id === 'start-btn') {
+        musicManager.playMusic();
+      }
       // ตรวจสอบ navMap ก่อน
       if (navMap[id]) {
         this.showPage(navMap[id]);
@@ -521,11 +525,11 @@ const assessmentCalculator = {
     let summary = '';
     if (honest) {
       if (score > 7 && score <= 12) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับน้อย';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับน้อย';
       } else if (score >= 13 && score <= 18) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับปานกลาง';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับปานกลาง';
       } else if (score >= 19) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับรุนแรง';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับรุนแรง';
       }
       scoreElement.textContent = score + ' คะแนน';
       
@@ -543,7 +547,7 @@ const assessmentCalculator = {
     } else {
       scoreElement.textContent = score;
       if (score <= 7) {
-        messageElement.textContent = 'ไม่มีอาการของโรคซึมเศร้าหรือมีอาการของโรคซึมเศร้าระดับน้อยมาก';
+        messageElement.textContent = 'ไม่มีอาการของภาวะซึมเศร้าหรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก';
       }
     }
     
@@ -586,13 +590,13 @@ const assessmentCalculator = {
 
   get9QMessage(score) {
     if (score <= 7) {
-      return 'ไม่มีอาการของโรคซึมเศร้าหรือมีอาการของโรคซึมเศร้าระดับน้อยมาก';
+      return 'ไม่มีอาการของภาวะซึมเศร้าหรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก';
     } else if (score >= 8 && score <= 12) {
-      return 'มีอาการของโรคซึมเศร้า ระดับน้อย';
+      return 'มีอาการของภาวะซึมเศร้า ระดับน้อย';
     } else if (score >= 13 && score <= 18) {
-      return 'มีอาการของโรคซึมเศร้า ระดับปานกลาง';
+      return 'มีอาการของภาวะซึมเศร้า ระดับปานกลาง';
     } else if (score >= 19) {
-      return 'มีอาการของโรคซึมเศร้า ระดับรุนแรง';
+      return 'มีอาการของภาวะซึมเศร้า ระดับรุนแรง';
     }
     return '';
   },
@@ -642,6 +646,7 @@ const assessmentCalculator = {
 // 6. เริ่มต้นแอปพลิเคชัน
 function initApp() {
   musicManager.init();
+  musicManager.playMusic(); // เล่นเพลงทันทีเมื่อเริ่มต้น
   pageManager.init();
 
   // แสดงหน้าแรก
