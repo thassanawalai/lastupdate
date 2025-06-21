@@ -455,6 +455,9 @@ const assessmentCalculator = {
       // สุ่มข้อความอบอุ่น
       const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
       if (st5MessageElement) st5MessageElement.innerHTML = msg;
+
+      // === เพิ่มบรรทัดนี้ ===
+      this.submitResults();
     } else if (score >= 8) {
       if (st5MessageElement) st5MessageElement.innerHTML = '';
     } else {
@@ -594,8 +597,13 @@ const assessmentCalculator = {
     return '';
   },
 
+  isSubmitting: false,
+
   async submitResults() {
     try {
+      if (this.isSubmitting) return; // ป้องกันซ้ำ
+      this.isSubmitting = true;
+      
       const submissionData = {
         personalInfo: appState.formData.personalInfo,
         results: {
@@ -625,6 +633,8 @@ const assessmentCalculator = {
       console.log('Submission successful:', data);
     } catch (error) {
       console.error('Error submitting results:', error);
+    } finally {
+      this.isSubmitting = false;
     }
   }
 };
