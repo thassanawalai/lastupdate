@@ -657,12 +657,41 @@ function initApp() {
 document.addEventListener('DOMContentLoaded', initApp);
 
 // ===== [Validation] =====
+function showNoti(message) {
+  let noti = document.getElementById('custom-noti');
+  if (!noti) {
+    noti = document.createElement('div');
+    noti.id = 'custom-noti';
+    noti.style.position = 'fixed';
+    noti.style.top = '32px';
+    noti.style.left = '50%';
+    noti.style.transform = 'translateX(-50%)';
+    noti.style.background = 'rgba(255, 80, 80, 0.97)';
+    noti.style.color = '#fff';
+    noti.style.padding = '14px 32px';
+    noti.style.borderRadius = '12px';
+    noti.style.fontSize = '1.05rem';
+    noti.style.fontWeight = '500';
+    noti.style.boxShadow = '0 2px 12px rgba(0,0,0,0.12)';
+    noti.style.zIndex = '9999';
+    noti.style.transition = 'opacity 0.3s';
+    noti.style.opacity = '0';
+    document.body.appendChild(noti);
+  }
+  noti.textContent = message;
+  noti.style.opacity = '1';
+  setTimeout(() => {
+    noti.style.opacity = '0';
+  }, 1800);
+}
+
 function validateCurrentPage(pageId) {
   // Personal Info
   if (pageId === 'personal-info-page') {
     const nickname = document.getElementById('nickname');
     if (!nickname.value.trim()) {
       nickname.focus();
+      showNoti('กรุณากรอกชื่อเล่น');
       return false;
     }
   }
@@ -670,6 +699,7 @@ function validateCurrentPage(pageId) {
     const age = document.getElementById('age');
     if (!age.value.trim()) {
       age.focus();
+      showNoti('กรุณากรอกอายุ');
       return false;
     }
   }
@@ -677,6 +707,7 @@ function validateCurrentPage(pageId) {
     const gender = document.getElementById('gender');
     if (!gender.value) {
       gender.focus();
+      showNoti('กรุณาเลือกเพศ');
       return false;
     }
   }
@@ -684,46 +715,44 @@ function validateCurrentPage(pageId) {
     const occupation = document.getElementById('occupation');
     if (!occupation.value.trim()) {
       occupation.focus();
+      showNoti('กรุณากรอกอาชีพหรือหน้าที่');
       return false;
     }
   }
   if (pageId === 'reflection-page') {
     const selected = document.querySelector('.feeling-option.selected');
     if (!selected) {
-      alert('กรุณาเลือกข้อความที่ตรงกับความรู้สึกของคุณ');
+      showNoti('กรุณาเลือกข้อความที่ตรงกับความรู้สึกของคุณ');
       return false;
     }
   }
   if (pageId === 'feeling-page') {
     const checked = document.querySelectorAll('input[name="feelings"]:checked');
     if (checked.length === 0) {
-      alert('กรุณาเลือกอย่างน้อย 1 ข้อ');
+      showNoti('กรุณาเลือกอย่างน้อย 1 ข้อ');
       return false;
     }
   }
-  
   // ST-5
   for (let i = 1; i <= 5; i++) {
     if (pageId === `st5-page${i}`) {
       const selected = document.querySelector(`#st5-page${i} .option-btn.selected`);
       if (!selected) {
-        alert('กรุณาเลือกคำตอบ');
+        showNoti('กรุณาเลือกคำตอบ');
         return false;
       }
     }
   }
-  
   // 9Q
   for (let i = 1; i <= 9; i++) {
     if (pageId === `9q-page${i}`) {
       const selected = document.querySelector(`#9q-page${i} .option-btn.selected`);
       if (!selected) {
-        alert('กรุณาเลือกคำตอบ');
+        showNoti('กรุณาเลือกคำตอบ');
         return false;
       }
     }
   }
-  
   return true;
 }
 
