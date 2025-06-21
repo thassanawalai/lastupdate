@@ -619,10 +619,52 @@ select.form-input {
 }
 @media (max-width: 600px) {
   #9q-honest-result-page .sub-container {
-    max-width: 99vw;
-    padding: 16px 4px;
-    border-radius: 10px;
-    margin: 12px auto;
+    max-width: 100vw;
+    width: 100vw;
+    min-width: 0;
+    margin: 0;
+    border-radius: 0 0 18px 18px;
+    padding: 18px 4vw 18px 4vw;
+    box-shadow: none;
+  }
+  #9q-honest-result-page .question-container {
+    padding: 0;
+  }
+  #9q-honest-result-page .header h1 {
+    font-size: 1.3rem;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  #9q-honest-result-page #final-result-content {
+    font-size: 1rem;
+  }
+  #9q-honest-result-page .help-contacts {
+    padding: 12px 2vw;
+    margin-top: 18px;
+    font-size: 0.95rem;
+  }
+  #9q-honest-result-page .help-contacts h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+  #9q-honest-result-page .help-contacts ul li {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  #9q-honest-result-page .quote {
+    font-size: 0.95rem;
+    margin-top: 18px;
+    padding: 0 2vw;
+  }
+  #9q-honest-result-page .nav-buttons {
+    margin-top: 18px;
+  }
+  #9q-honest-result-page .nav-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    font-size: 1rem;
+    padding: 12px 0;
   }
 }
 
@@ -790,5 +832,57 @@ select.form-input {
   }
   .result-message {
     font-size: 0.75rem;
+  }
+}
+
+/* ปรับ layout หน้า final-result-page ให้เหมาะกับมือถือ */
+@media (max-width: 600px) {
+  #final-result-page .sub-container {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 0 18px 18px !important;
+    padding: 18px 4vw 18px 4vw !important;
+    box-shadow: none !important;
+  }
+  #final-result-page .question-container {
+    padding: 0;
+  }
+  #final-result-page .header h1 {
+    font-size: 1.3rem;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  #final-result-content {
+    font-size: 1rem;
+  }
+  #final-result-page .help-contacts {
+    padding: 12px 2vw;
+    margin-top: 18px;
+    font-size: 0.95rem;
+  }
+  #final-result-page .help-contacts h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+  #final-result-page .help-contacts ul li {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  #final-result-page .quote {
+    font-size: 0.95rem;
+    margin-top: 18px;
+    padding: 0 2vw;
+  }
+  #final-result-page .nav-buttons {
+    margin-top: 18px;
+  }
+  #final-result-page .nav-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    font-size: 1rem;
+    padding: 12px 0;
   }
 }
