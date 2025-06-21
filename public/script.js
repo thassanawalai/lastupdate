@@ -592,8 +592,13 @@ const assessmentCalculator = {
     return '';
   },
 
+  isSubmitting: false,
+
   async submitResults() {
     try {
+      if (this.isSubmitting) return; // ป้องกันซ้ำ
+      this.isSubmitting = true;
+      
       const submissionData = {
         personalInfo: appState.formData.personalInfo,
         results: {
@@ -623,6 +628,8 @@ const assessmentCalculator = {
       console.log('Submission successful:', data);
     } catch (error) {
       console.error('Error submitting results:', error);
+    } finally {
+      this.isSubmitting = false;
     }
   }
 };

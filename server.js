@@ -30,24 +30,47 @@ const responseSchema = new mongoose.Schema({
     occupation: String
   },
   results: mongoose.Schema.Types.Mixed,
+  level: Number, // เพิ่ม field นี้
   createdAt: { type: Date, default: Date.now }
 });
 const Response = mongoose.model("surveys", responseSchema);
+
 // Route
 app.post('/submit', async (req, res) => {
   try {
+    // คำนวณ level
+    let level = null;
+    const results = req.body.results || {};
+
+    // ระดับ 1: st5 <= 7
+    if (results.st5 && typeof results.st5.score === "number" && results.st5.score <= 7) {
+      level = 1;
+    }
+    // ระดับ 2: 2Q score = 0 (และยังไม่ถึง 9Q)
+    else if (results.twoQ && typeof results.twoQ.score === "number" && results.twoQ.score === 0) {
+      level = 2;
+    }
+    // ระดับ 3: ทำถึง 9Q (มี results.nineQ)
+    else if (results.nineQ) {
+      level = 3;
+    }
+
     let result;
     if (req.body._id) {
       // อัปเดต record เดิม
       result = await Response.findByIdAndUpdate(
         req.body._id,
-        { $set: { personalInfo: req.body.personalInfo, results: req.body.results } },
+        { $set: { personalInfo: req.body.personalInfo, results: req.body.results, level } },
         { new: true }
       );
       res.json({ success: true, _id: result._id });
     } else {
       // สร้างใหม่
-      const submission = new Response(req.body);
+      const submission = new Response({
+        personalInfo: req.body.personalInfo,
+        results: req.body.results,
+        level
+      });
       await submission.save();
       res.json({ success: true, insertedId: submission._id });
     }
