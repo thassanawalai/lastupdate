@@ -453,6 +453,9 @@ const assessmentCalculator = {
       // สุ่มข้อความอบอุ่น
       const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
       if (st5MessageElement) st5MessageElement.innerHTML = msg;
+
+      // === เพิ่มบรรทัดนี้ ===
+      this.submitResults();
     } else if (score >= 8) {
       if (st5MessageElement) st5MessageElement.innerHTML = '';
     } else {

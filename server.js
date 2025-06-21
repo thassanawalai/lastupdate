@@ -38,26 +38,31 @@ const Response = mongoose.model("surveys", responseSchema);
 // Route
 app.post('/submit', async (req, res) => {
   try {
-    // คำนวณ level
     let level = null;
     const results = req.body.results || {};
+    const st5Score = results.st5 ? Number(results.st5.score) : null;
 
-    // ระดับ 1: st5 <= 7
-    if (results.st5 && typeof results.st5.score === "number" && results.st5.score <= 7) {
-      level = 1;
+    // ระดับ 3: ทำถึง 9Q (มี results.nineQ)
+    if (results.nineQ) {
+      level = 3;
     }
-    // ระดับ 2: 2Q score = 0 (และยังไม่ถึง 9Q)
-    else if (results.twoQ && typeof results.twoQ.score === "number" && results.twoQ.score === 0) {
+    // ระดับ 2: st5 > 7 หรือ twoQ.hasDepression === false
+    else if (
+      (results.st5 && !isNaN(st5Score) && st5Score > 7) ||
+      (results.twoQ && results.twoQ.hasDepression === false)
+    ) {
       level = 2;
     }
-    // ระดับ 3: ทำถึง 9Q (มี results.nineQ)
-    else if (results.nineQ) {
-      level = 3;
+    // ระดับ 1: st5 <= 7 หรือไม่มีคะแนนเลย
+    else if (
+      (results.st5 && !isNaN(st5Score) && st5Score <= 7) ||
+      (typeof results.st5 === "undefined")
+    ) {
+      level = 1;
     }
 
     let result;
     if (req.body._id) {
-      // อัปเดต record เดิม
       result = await Response.findByIdAndUpdate(
         req.body._id,
         { $set: { personalInfo: req.body.personalInfo, results: req.body.results, level } },
@@ -65,7 +70,6 @@ app.post('/submit', async (req, res) => {
       );
       res.json({ success: true, _id: result._id });
     } else {
-      // สร้างใหม่
       const submission = new Response({
         personalInfo: req.body.personalInfo,
         results: req.body.results,
