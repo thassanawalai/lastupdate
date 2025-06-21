@@ -144,6 +144,7 @@ const pageManager = {
     const navMap = {
       'start-btn': 'rama9-page',
       'to-tree-page': 'tree-page',
+      'back-to-tree-page': 'tree-page',
       'to-personal-info-page': 'personal-info-page',
       'to-age-page': 'age-page',
       'back-to-personal-info': 'personal-info-page',
@@ -168,8 +169,8 @@ const pageManager = {
       'back-to-st5-page5': 'st5-page5',
       'to-st5-result-page': 'st5-result-page',
       'back-to-st5-result-page': 'st5-result-page',
-      'to-st5-special-result': 'st5-special-result',
-      'back-to-st5-special-result': 'st5-result-page',
+      'to-st5-special-result-page': 'st5-special-result-page',
+      'back-to-st5-special-result-page': 'st5-special-result-page',
       'to-thanks-page': 'thanks-page',
       'back-to-thanks-page': 'thanks-page',
       'to-st5-honest-result': 'st5-honest-result',
@@ -179,6 +180,7 @@ const pageManager = {
       'to-2q-page': '2q-page',
       'back-to-2q-page': '2q-page',
       'to-2q-result-page': '2q-result-page',
+      'back-to-2q-result-page': '2q-result-page',
       'to-thanks-page-2': 'thanks-page-2',
       'to-2q-honest-result-page': '2q-honest-result-page',
       'back-to-2q-honest-result-page': '2q-honest-result-page',
@@ -209,17 +211,9 @@ const pageManager = {
       'back-to-honest-9q-result': '9q-honest-result-page',
       'to-9q-special-result-page': '9q-special-result-page',
       'back-to-9q-special-result-page': '9q-special-result-page',
-      'to-8q-page': '8q-page',
-      'back-to-8q-page': '8q-page',
-      'to-8q-page-2': '8q-page-2',
-      'back-to-8q-page-2': '8q-page-2',
-      'to-8q-page-3': '8q-page-3',
-      'back-to-8q-page-3': '8q-page-3',
-      'to-8q-result-page': '8q-result-page',
-      'back-to-8q-result-page': '8q-result-page',
       'to-final-result': 'final-result-page',
       'restart-assessment': 'welcome-page',
-      'to-2q-result-page': '2q-result-page',
+      'back-to-welcome-page': 'welcome-page',
       'to-thanks-page-2': 'thanks-page-2',
       'to-9q-special-result': '9q-special-result',
       'back-to-9q-special-result': '9q-result-page',
@@ -237,6 +231,10 @@ const pageManager = {
       const id = btn.id;
       if (!id) return;
       
+      // เล่นเพลงเมื่อกดปุ่ม start-btn
+      if (id === 'start-btn') {
+        musicManager.playMusic();
+      }
       // ตรวจสอบ navMap ก่อน
       if (navMap[id]) {
         this.showPage(navMap[id]);
@@ -330,20 +328,52 @@ const pageManager = {
     }
 
     // คำถาม 2Q
-    document.querySelectorAll('input[name="twoQ"]').forEach(checkbox => {
+    const twoQCheckboxes = document.querySelectorAll('input[name="twoQ"]');
+    const twoQNoneRadio = document.getElementById('2q-none');
+
+    twoQCheckboxes.forEach(checkbox => {
       checkbox.addEventListener('change', (e) => {
         const value = e.target.value;
-
         if (e.target.checked) {
           if (!appState.formData.assessments.twoQ.includes(value)) {
             appState.formData.assessments.twoQ.push(value);
           }
+          // ถ้าเลือก 2q1 หรือ 2q2 ให้ disable radio "ไม่มีทั้ง 2 ข้อ"
+          if (twoQNoneRadio) {
+            twoQNoneRadio.checked = false;
+            twoQNoneRadio.disabled = true;
+          }
         } else {
           appState.formData.assessments.twoQ =
             appState.formData.assessments.twoQ.filter(item => item !== value);
+          // ถ้าไม่มี checkbox ใดถูกเลือก ให้ enable radio "ไม่มีทั้ง 2 ข้อ"
+          if (
+            !Array.from(twoQCheckboxes).some(cb => cb.checked) &&
+            twoQNoneRadio
+          ) {
+            twoQNoneRadio.disabled = false;
+          }
         }
       });
     });
+
+    if (twoQNoneRadio) {
+      twoQNoneRadio.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          // uncheck และ disable 2q1, 2q2
+          twoQCheckboxes.forEach(cb => {
+            cb.checked = false;
+            cb.disabled = true;
+          });
+          appState.formData.assessments.twoQ = [];
+        } else {
+          // enable 2q1, 2q2
+          twoQCheckboxes.forEach(cb => {
+            cb.disabled = false;
+          });
+        }
+      });
+    }
 
     // คำถามความรู้สึก
     document.querySelectorAll('.feeling-option').forEach(option => {
@@ -453,6 +483,9 @@ const assessmentCalculator = {
       // สุ่มข้อความอบอุ่น
       const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
       if (st5MessageElement) st5MessageElement.innerHTML = msg;
+
+      // === เพิ่มบรรทัดนี้ ===
+      this.submitResults();
     } else if (score >= 8) {
       if (st5MessageElement) st5MessageElement.innerHTML = '';
     } else {
@@ -516,11 +549,11 @@ const assessmentCalculator = {
     let summary = '';
     if (honest) {
       if (score > 7 && score <= 12) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับน้อย';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับน้อย';
       } else if (score >= 13 && score <= 18) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับปานกลาง';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับปานกลาง';
       } else if (score >= 19) {
-        summary = 'มีอาการของโรคซึมเศร้า ระดับรุนแรง';
+        summary = 'มีอาการของภาวะซึมเศร้า ระดับรุนแรง';
       }
       scoreElement.textContent = score + ' คะแนน';
       
@@ -538,7 +571,7 @@ const assessmentCalculator = {
     } else {
       scoreElement.textContent = score;
       if (score <= 7) {
-        messageElement.textContent = 'ไม่มีอาการของโรคซึมเศร้าหรือมีอาการของโรคซึมเศร้าระดับน้อยมาก';
+        messageElement.textContent = 'ไม่มีอาการของภาวะซึมเศร้าหรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก';
       }
     }
     
@@ -581,19 +614,24 @@ const assessmentCalculator = {
 
   get9QMessage(score) {
     if (score <= 7) {
-      return 'ไม่มีอาการของโรคซึมเศร้าหรือมีอาการของโรคซึมเศร้าระดับน้อยมาก';
+      return 'ไม่มีอาการของภาวะซึมเศร้าหรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก';
     } else if (score >= 8 && score <= 12) {
-      return 'มีอาการของโรคซึมเศร้า ระดับน้อย';
+      return 'มีอาการของภาวะซึมเศร้า ระดับน้อย';
     } else if (score >= 13 && score <= 18) {
-      return 'มีอาการของโรคซึมเศร้า ระดับปานกลาง';
+      return 'มีอาการของภาวะซึมเศร้า ระดับปานกลาง';
     } else if (score >= 19) {
-      return 'มีอาการของโรคซึมเศร้า ระดับรุนแรง';
+      return 'มีอาการของภาวะซึมเศร้า ระดับรุนแรง';
     }
     return '';
   },
 
+  isSubmitting: false,
+
   async submitResults() {
     try {
+      if (this.isSubmitting) return; // ป้องกันซ้ำ
+      this.isSubmitting = true;
+      
       const submissionData = {
         personalInfo: appState.formData.personalInfo,
         results: {
@@ -623,6 +661,8 @@ const assessmentCalculator = {
       console.log('Submission successful:', data);
     } catch (error) {
       console.error('Error submitting results:', error);
+    } finally {
+      this.isSubmitting = false;
     }
   }
 };
@@ -630,6 +670,7 @@ const assessmentCalculator = {
 // 6. เริ่มต้นแอปพลิเคชัน
 function initApp() {
   musicManager.init();
+  musicManager.playMusic(); // เล่นเพลงทันทีเมื่อเริ่มต้น
   pageManager.init();
 
   // แสดงหน้าแรก
@@ -640,12 +681,41 @@ function initApp() {
 document.addEventListener('DOMContentLoaded', initApp);
 
 // ===== [Validation] =====
+function showNoti(message) {
+  let noti = document.getElementById('custom-noti');
+  if (!noti) {
+    noti = document.createElement('div');
+    noti.id = 'custom-noti';
+    noti.style.position = 'fixed';
+    noti.style.top = '32px';
+    noti.style.left = '50%';
+    noti.style.transform = 'translateX(-50%)';
+    noti.style.background = 'rgba(255, 80, 80, 0.97)';
+    noti.style.color = '#fff';
+    noti.style.padding = '14px 32px';
+    noti.style.borderRadius = '12px';
+    noti.style.fontSize = '1.05rem';
+    noti.style.fontWeight = '500';
+    noti.style.boxShadow = '0 2px 12px rgba(0,0,0,0.12)';
+    noti.style.zIndex = '9999';
+    noti.style.transition = 'opacity 0.3s';
+    noti.style.opacity = '0';
+    document.body.appendChild(noti);
+  }
+  noti.textContent = message;
+  noti.style.opacity = '1';
+  setTimeout(() => {
+    noti.style.opacity = '0';
+  }, 1800);
+}
+
 function validateCurrentPage(pageId) {
   // Personal Info
   if (pageId === 'personal-info-page') {
     const nickname = document.getElementById('nickname');
     if (!nickname.value.trim()) {
       nickname.focus();
+      showNoti('กรุณากรอกชื่อเล่น');
       return false;
     }
   }
@@ -653,6 +723,7 @@ function validateCurrentPage(pageId) {
     const age = document.getElementById('age');
     if (!age.value.trim()) {
       age.focus();
+      showNoti('กรุณากรอกอายุ');
       return false;
     }
   }
@@ -660,6 +731,7 @@ function validateCurrentPage(pageId) {
     const gender = document.getElementById('gender');
     if (!gender.value) {
       gender.focus();
+      showNoti('กรุณาเลือกเพศ');
       return false;
     }
   }
@@ -667,46 +739,44 @@ function validateCurrentPage(pageId) {
     const occupation = document.getElementById('occupation');
     if (!occupation.value.trim()) {
       occupation.focus();
+      showNoti('กรุณากรอกอาชีพหรือหน้าที่');
       return false;
     }
   }
   if (pageId === 'reflection-page') {
     const selected = document.querySelector('.feeling-option.selected');
     if (!selected) {
-      alert('กรุณาเลือกข้อความที่ตรงกับความรู้สึกของคุณ');
+      showNoti('กรุณาเลือกข้อความที่ตรงกับความรู้สึกของคุณ');
       return false;
     }
   }
   if (pageId === 'feeling-page') {
     const checked = document.querySelectorAll('input[name="feelings"]:checked');
     if (checked.length === 0) {
-      alert('กรุณาเลือกอย่างน้อย 1 ข้อ');
+      showNoti('กรุณาเลือกอย่างน้อย 1 ข้อ');
       return false;
     }
   }
-  
   // ST-5
   for (let i = 1; i <= 5; i++) {
     if (pageId === `st5-page${i}`) {
       const selected = document.querySelector(`#st5-page${i} .option-btn.selected`);
       if (!selected) {
-        alert('กรุณาเลือกคำตอบ');
+        showNoti('กรุณาเลือกคำตอบ');
         return false;
       }
     }
   }
-  
   // 9Q
   for (let i = 1; i <= 9; i++) {
     if (pageId === `9q-page${i}`) {
       const selected = document.querySelector(`#9q-page${i} .option-btn.selected`);
       if (!selected) {
-        alert('กรุณาเลือกคำตอบ');
+        showNoti('กรุณาเลือกคำตอบ');
         return false;
       }
     }
   }
-  
   return true;
 }
 

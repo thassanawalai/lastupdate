@@ -87,7 +87,7 @@
           <div class="question-text">คุณอยากให้เราเรียกคุณว่าอะไรดี? <br> (ชื่อเล่น หรือนามแฝงก็ได้นะ)</div>
           <input type="text" id="nickname" class="form-input" placeholder="กรุณากรอกชื่อเล่น" required>
           <div class="nav-buttons">
-            <button class="nav-btn prev-btn" id="back-to-welcome"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn prev-btn" id="back-to-tree-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-age-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -306,17 +306,17 @@
 
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-st5-page5"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-            <button class="nav-btn next-btn" id="to-st5-special-result">ต่อไป <i class="fas fa-arrow-right"></i></button>
+            <button class="nav-btn next-btn" id="to-st5-special-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- ST-5 Special Result Page -->
-    <div class="page" id="st5-special-result">
+    <div class="page" id="st5-special-result-page">
       <div class="sub-container">
         <div class="question-container">
-          <div class="result-message" style="font-size:1.15rem;line-height:2;text-align:center;">
+          <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
             พระบาทสมเด็จพระบรมชนกาธิเบศร <br>มหาภูมิพลอดุลยเดชมหาราช บรมนาถบพิตร <br>กล่าวไว้ว่า<br><br>
             “ความพอเพียง” <br>ไม่ได้หมายถึงแค่การใช้ชีวิตเรียบง่าย <br>แต่ยังหมายถึงการรู้จัก “พอดี” กับใจตัวเอง<br><br>
             ขอชื่นชมที่คุณดูแลใจตัวเองได้ดี <br>และไม่ลืมหยุดพักเมื่อถึงเวลา
@@ -346,6 +346,10 @@
             ถ้าวันไหนอยากพูดคุย อยากพัก ขอให้รู้ว่า <br>เราอยู่ตรงนี้…พร้อมฟังเสมอค่ะ<br>
             กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณ<br>แล้วพิมพ์ในช่องแชทว่า “ระดับ 1”<br><br>
             <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">คลิกที่นี่เพื่อพูดคุยกับเราใน LINE</a>
+            <div class="nav-buttons" style="margin-top:32px;">
+            <button class="nav-btn prev-btn" id="back-to-st5-special-result-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-final-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
           </div>
         </div>
       </div>
@@ -406,8 +410,8 @@
               <label for="2q2">2. คุณรู้สึกเบื่อ ทำอะไรก็ไม่เพลิดเพลิน</label>
             </div>
             <div class="checkbox-option" style="margin-top:10px;">
-              <input type="radio" id="2q-none" name="twoQ-none" value="none">
-              <label for="2q-none"><b>ไม่มีทั้ง 2 ข้อ</b></label>
+              <input type="checkbox" id="2q-none" name="twoQ-none" value="none">
+              <label for="2q-none">ไม่มีทั้ง 2 ข้อ</label>
             </div>
           </div>
 
@@ -437,12 +441,15 @@
     <div class="page" id="thanks-page-2">
       <div class="sub-container">
         <div class="question-container">
-          <div class="result-message" style="font-size:1.15rem;line-height:2;text-align:center;">
+          <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
             <b>ขอบคุณที่ตอบแบบประเมินนะ 🌿</b><br><br>
             การดูแลใจตัวเองเป็นสิ่งสำคัญมาก แม้ในวันที่เรารู้สึกว่า “ไม่เป็นไร”<br>
             ถ้าคุณอยากพูดคุยหรือหาวิธีผ่อนคลายใจเพิ่มเติม เรายินดีอยู่ตรงนี้เพื่อคุณเสมอ 💬<br>
-            👉 กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณแล้วพิมพ์ “ระดับ 2 ”ในช่องแชท<br><br>
-            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">คลิกที่นี่เพื่อพูดคุยกับเราใน LINE</a>
+            👉 กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณแล้วพิมพ์ “ระดับ 2 ”ในช่องแชท
+            <div class="nav-buttons" style="margin-top:32px;">
+            <button class="nav-btn prev-btn" id="back-to-2q-result-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-final-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
           </div>
         </div>
       </div>
@@ -479,7 +486,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 9Q Assessment Pages (ข้อละหน้า) -->
     <div class="page" id="9q-page1">
       <div class="sub-container">
@@ -641,38 +648,36 @@
           <div class="result-score" id="9q-score">0</div>
 
             ไม่มีอาการของภาวะซึมเศร้า<br>หรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก
-          </div>
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-9q-page9"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-9q-thankyou-page">ต่อไป<i class="fas fa-arrow-right"></i></button>
           </div>
+          </div>
+        </div>
+      </div>
+    
+    <!-- 9Q Thank You Page (แก้ไขแล้ว) -->
+    <div class="page" id="9q-thankyou-page">
+      <div class="sub-container">
+        <div class="question-container">
+          <div class="result-message" style="text-align: center;">
+            <b style="font-size: 1.5rem;">ขอบคุณที่เปิดใจตอบคำถามเหล่านี้ 💙</b><br><br>
+            บางความรู้สึกอาจหนัก แต่คุณไม่ได้แบกมันคนเดียวอีกต่อไป<br>
+            เราได้เตรียม “คำแนะนำในการดูแลใจ” <br>
+            ที่เหมาะกับความรู้สึกของคุณไว้แล้ว พร้อมฟังคุณเสมอ<br>
+            กดที่นี่เพื่อพูดคุยและรับวิธีผ่อนคลายใจแบบเฉพาะคุณ <br>
+            แล้วพิมพ์“ ระดับ 3 ” เข้าไปในช่องแชท<br><br>
+            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline; font-weight: 500;">
+              คลิกที่นี่เพื่อพูดคุยกับเราใน LINE
+            </a>
+          </div>
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" id="back-to-9q-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-home">กลับสู่หน้าหลัก</button>
+          </div>
         </div>
       </div>
     </div>
-
-    
-  <!-- 9Q Thank You Page (แก้ไขแล้ว) -->
-<div class="page" id="9q-thankyou-page">
-  <div class="sub-container">
-    <div class="question-container">
-      <div class="result-message" style="text-align: center;">
-        <b style="font-size: 1.3rem;">ขอบคุณที่เปิดใจตอบคำถามเหล่านี้ 💙</b><br><br>
-        บางความรู้สึกอาจหนัก แต่คุณไม่ได้แบกมันคนเดียวอีกต่อไป<br>
-        เราได้เตรียม “คำแนะนำในการดูแลใจ” <br>
-        ที่เหมาะกับความรู้สึกของคุณไว้แล้ว พร้อมฟังคุณเสมอ<br>
-        กดที่นี่เพื่อพูดคุยและรับวิธีผ่อนคลายใจแบบเฉพาะคุณ <br>
-        แล้วพิมพ์“ ระดับ 3 ” เข้าไปในช่องแชท<br><br>
-        <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline; font-weight: 500;">
-          คลิกที่นี่เพื่อพูดคุยกับเราใน LINE
-        </a>
-      </div>
-      <div class="nav-buttons">
-        <button class="nav-btn prev-btn" id="back-to-9q-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-        <button class="nav-btn next-btn" id="to-home">กลับสู่หน้าหลัก</button>
-      </div>
-    </div>
-  </div>
-</div>
 
     <!-- 9Q Honest Result Page -->
     <div class="page" id="9q-honest-result-page">
@@ -707,7 +712,7 @@
 
     <!-- Final Result Page -->
     <div class="page" id="final-result-page">
-      <div class="sub-container" style="max-width: 480px; margin: 36px auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10); padding: 32px 20px;">
+      <div class="sub-container" style="max-width: 480px; margin: 36px auto; border-radius: 18px; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10); padding: 32px 20px;">
         <div class="question-container">
           <div class="header">
             <h1>ผลประเมินสุขภาพจิตของคุณ</h1>
@@ -720,9 +725,10 @@
           <div class="help-contacts">
             <h3>ช่องทางการติดต่อหากต้องการความช่วยเหลือ</h3>
             <ul>
+
+              <li>ศูนย์สุขภาพแห่งมหาวิทยาลัยหัวเฉัยวเฉลิมพระเกียรติ<br>(HCU Health Center) โทร: 08-960-10089</li>
               <li>สายด่วนสุขภาพจิต: 1323</li>
               <li>สมาคมสะมาริตันส์: 02-713-6793</li>
-              <li>โรงพยาบาลหัวเฉียว: 08-9601-0089</li>
             </ul>
           </div>
 
@@ -732,7 +738,6 @@
           </div>
 
           <div class="nav-buttons">
-            <button class="nav-btn prev-btn" id="back-to-previous-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="restart-assessment">ทำแบบประเมินใหม่ <i class="fas fa-redo"></i></button>
           </div>
         </div>
