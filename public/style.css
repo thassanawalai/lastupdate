@@ -376,7 +376,7 @@ select.form-input {
   margin: 0 auto 10px auto;
   max-width: 95%;
   font-size: 1.15rem;
-  line-height: 2.2;
+  line-height: 2;
   color: #555;
   word-break: keep-all;
   word-wrap: break-word;
@@ -476,18 +476,18 @@ select.form-input {
 #start-btn {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: 30px;
   transform: translateX(-50%);
   width: 95%;
-  min-width: 260px;
+  min-width: 350px;
   max-width: 500px;
   margin: 50px auto 0 auto;
   display: block;
   padding: 10px 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   border-radius: 18px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0em;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(90,155,213,0.08);
   z-index: 2;
@@ -623,6 +623,13 @@ select.form-input {
 
 /* Responsive Design */
 @media (max-width: 900px) {
+   #start-btn {
+    width: fit-content;
+    padding: 12px 24px; /* เพิ่มความกว้างรอบตัวอักษรให้ดูสมดุล */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+  }
   .container {
     padding: 30px 10px 80px 10px;
     margin: 15px auto;
@@ -654,16 +661,20 @@ select.form-input {
 }
 
 @media (max-width: 768px) {
-  
+   #start-btn {
+    width: fit-content;
+    padding: 12px 24px; /* เพิ่มความกว้างรอบตัวอักษรให้ดูสมดุล */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+  }
   .container {
     width: 95%;
     padding: 20px;
   }
-  
   .header h1 {
     font-size: 1.8rem;
   }
-  
   .question-text {
     font-size: 1.1rem;
   }
@@ -681,7 +692,7 @@ select.form-input {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .container {
     padding: 18px 4px 60px 4px;
     margin: 8px auto;

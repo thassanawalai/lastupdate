@@ -144,6 +144,7 @@ const pageManager = {
     const navMap = {
       'start-btn': 'rama9-page',
       'to-tree-page': 'tree-page',
+      'back-to-tree-page': 'tree-page',
       'to-personal-info-page': 'personal-info-page',
       'to-age-page': 'age-page',
       'back-to-personal-info': 'personal-info-page',
@@ -219,6 +220,7 @@ const pageManager = {
       'back-to-8q-result-page': '8q-result-page',
       'to-final-result': 'final-result-page',
       'restart-assessment': 'welcome-page',
+      'back-to-welcome-page': 'welcome-page',
       'to-2q-result-page': '2q-result-page',
       'to-thanks-page-2': 'thanks-page-2',
       'to-9q-special-result': '9q-special-result',
