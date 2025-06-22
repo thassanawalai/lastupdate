@@ -1,8 +1,3 @@
-// ======================
-// ระบบจัดการแบบประเมินสุขภาพจิต
-// ======================
-
-// 1. ข้อมูลและสถานะแอปพลิเคชัน
 const appState = {
   currentPage: 'welcome-page',
   formData: {
@@ -30,7 +25,6 @@ const appState = {
   }
 };
 
-// 2. ตัวแปรอ้างอิง DOM Elements
 const DOM = {
   pages: document.querySelectorAll('.page'),
   musicControl: document.getElementById('music-control'),
@@ -38,7 +32,6 @@ const DOM = {
   musicToggleBtn: document.getElementById('music-toggle-btn'),
 };
 
-// 3. ระบบจัดการเพลง
 const musicManager = {
   init() {
     DOM.bgMusic.volume = appState.music.volume;
@@ -90,7 +83,6 @@ const musicManager = {
   }
 };
 
-// 4. ระบบจัดการหน้าเว็บ
 const pageManager = {
   init() {
     this.setupNavigation();
@@ -98,18 +90,17 @@ const pageManager = {
   },
 
   showPage(pageId) {
-    // ซ่อนทุกหน้า
     DOM.pages.forEach(page => {
       page.classList.remove('active');
+      page.style.display = 'none';
     });
 
-    // แสดงหน้าที่ต้องการ
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
       targetPage.classList.add('active');
+      targetPage.style.display = '';
       appState.currentPage = pageId;
 
-      // โหลดข้อมูลสำหรับหน้าดังกล่าวหากจำเป็น
       this.loadPageData(pageId);
     } else {
       console.error(`Page with ID ${pageId} not found`);
@@ -117,7 +108,6 @@ const pageManager = {
   },
 
   loadPageData(pageId) {
-    // โหลดหรืออัปเดตข้อมูลเฉพาะหน้า
     switch (pageId) {
       case 'st5-result-page':
         assessmentCalculator.displayST5Result();
@@ -137,6 +127,42 @@ const pageManager = {
       case '9q-honest-result-page':
         assessmentCalculator.display9QResultCombined({ honest: true });
         break;
+      default:
+        // Re-attach 9Q option listeners if on a 9Q page
+        this.attach9QOptionHandlers(pageId);
+        break;
+    }
+  },
+
+  // --- 9Q Option Button Handler ---
+  attach9QOptionHandlers(pageId) {
+    if (/^9q-page[1-9]$/.test(pageId)) {
+      const questionDiv = document.getElementById(pageId);
+      if (questionDiv) {
+        const buttons = questionDiv.querySelectorAll('.option-btn');
+        buttons.forEach(btn => {
+          // Remove previous listeners by cloning
+          const newBtn = btn.cloneNode(true);
+          btn.parentNode.replaceChild(newBtn, btn);
+        });
+        // Attach new listeners
+        const newButtons = questionDiv.querySelectorAll('.option-btn');
+        newButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // toggle selection (เลือกซ้ำ = ยกเลิก)
+            if (btn.classList.contains('selected')) {
+              btn.classList.remove('selected');
+              const qNum = parseInt(pageId.replace('9q-page', ''));
+              appState.formData.assessments.nineQ[qNum - 1] = null;
+            } else {
+              newButtons.forEach(b => b.classList.remove('selected'));
+              btn.classList.add('selected');
+              const qNum = parseInt(pageId.replace('9q-page', ''));
+              appState.formData.assessments.nineQ[qNum - 1] = parseInt(btn.dataset.value);
+            }
+          });
+        });
+      }
     }
   },
 
@@ -144,10 +170,10 @@ const pageManager = {
     const navMap = {
       'start-btn': 'rama9-page',
       'to-tree-page': 'tree-page',
-      'back-to-tree-page': 'tree-page',
       'to-personal-info-page': 'personal-info-page',
       'to-age-page': 'age-page',
       'back-to-personal-info': 'personal-info-page',
+      'back-to-welcome': 'welcome-page',
       'to-gender-page': 'gender-page',
       'back-to-gender-page': 'gender-page',
       'back-to-age-page': 'age-page',
@@ -222,59 +248,10 @@ const pageManager = {
       'to-final-result-page': 'final-result-page',
       'back-to-9q-honest-result-page': '9q-honest-result-page',
       'back-to-rama9-page': 'rama9-page',
+      'to-onem-page': 'onem-page',
+      'back-to-onem-page': 'onem-page',
     };
 
-    // การจัดการการคลิกปุ่มนำทาง
-    document.body.addEventListener('click', (e) => {
-      const btn = e.target.closest('button');
-      if (!btn) return;
-      const id = btn.id;
-      if (!id) return;
-      
-      // เล่นเพลงเมื่อกดปุ่ม start-btn
-      if (id === 'start-btn') {
-        musicManager.playMusic();
-      }
-      // ตรวจสอบ navMap ก่อน
-      if (navMap[id]) {
-        this.showPage(navMap[id]);
-      }
-      
-      // เงื่อนไขพิเศษสำหรับการนำทาง
-      if (id === 'to-st5-result-page') {
-        // ถ้าคะแนน ST5 >= 8 ให้ไปหน้า honest result
-        const st5Score = assessmentCalculator.calculateST5Score();
-        if (st5Score >= 8) {
-          this.showPage('st5-honest-result');
-          return;
-        }
-      }
-      
-      if (id === 'to-2q-result-page') {
-        const twoQ = appState.formData.assessments.twoQ;
-        let score = 0;
-        if (Array.isArray(twoQ)) {
-          score = twoQ.reduce((sum, v) => sum + (parseInt(v) || 0), 0);
-        }
-        if (score >= 1) {
-          pageManager.showPage('2q-honest-result-page');
-          return;
-        } else if (score === 0) {
-          pageManager.showPage('2q-result-page');
-          return;
-        }
-      }
-      
-      if (id === 'to-9q-result-page') {
-        const score = assessmentCalculator.calculate9QScore();
-        if (score > 7) {
-          pageManager.showPage('9q-honest-result-page');
-          assessmentCalculator.display9QResultCombined({ honest: true });
-        }
-      }
-    });
-
-    // การจัดการข้อมูลส่วนบุคคล
     document.getElementById('to-age-page')?.addEventListener('click', () => {
       this.savePersonalInfo();
     });
@@ -288,7 +265,6 @@ const pageManager = {
       this.savePersonalInfo();
     });
 
-    // การจัดการปุ่มในหน้า 9q-thankyou-page
     document.getElementById('back-to-9q-result')?.addEventListener('click', () => {
       this.showPage('9q-result-page');
     });
@@ -296,6 +272,26 @@ const pageManager = {
     document.getElementById('to-home')?.addEventListener('click', () => {
       this.resetApp();
       this.showPage('welcome-page');
+    });
+
+    document.body.addEventListener('click', function(e) {
+      if (e.target.closest('#restart-assessment-fab') || e.target.closest('#restart-assessment-fab-2') || e.target.closest('#restart-assessment-fab-3')) {
+        pageManager.resetApp();
+        pageManager.showPage('welcome-page');
+      }
+    });
+
+    document.getElementById('to-before2-page').addEventListener('click', function() {
+      showPage('before2-page');
+    });
+    document.getElementById('back-to-occupation-page').addEventListener('click', function() {
+      showPage('occupation-page');
+    });
+    document.getElementById('to-reflection-page').addEventListener('click', function() {
+      showPage('reflection-page');
+    });
+    document.getElementById('back-to-before-page').addEventListener('click', function() {
+      showPage('before-page');
     });
   },
 
@@ -309,7 +305,6 @@ const pageManager = {
   },
 
   setupQuestionHandlers() {
-    // คำถาม ST-5
     for (let i = 1; i <= 5; i++) {
       const pageId = `st5-page${i}`;
       const questionDiv = document.getElementById(pageId);
@@ -327,7 +322,6 @@ const pageManager = {
       }
     }
 
-    // คำถาม 2Q
     const twoQCheckboxes = document.querySelectorAll('input[name="twoQ"]');
     const twoQNoneRadio = document.getElementById('2q-none');
 
@@ -338,7 +332,6 @@ const pageManager = {
           if (!appState.formData.assessments.twoQ.includes(value)) {
             appState.formData.assessments.twoQ.push(value);
           }
-          // ถ้าเลือก 2q1 หรือ 2q2 ให้ disable radio "ไม่มีทั้ง 2 ข้อ"
           if (twoQNoneRadio) {
             twoQNoneRadio.checked = false;
             twoQNoneRadio.disabled = true;
@@ -346,7 +339,6 @@ const pageManager = {
         } else {
           appState.formData.assessments.twoQ =
             appState.formData.assessments.twoQ.filter(item => item !== value);
-          // ถ้าไม่มี checkbox ใดถูกเลือก ให้ enable radio "ไม่มีทั้ง 2 ข้อ"
           if (
             !Array.from(twoQCheckboxes).some(cb => cb.checked) &&
             twoQNoneRadio
@@ -358,16 +350,29 @@ const pageManager = {
     });
 
     if (twoQNoneRadio) {
+      let lastNoneChecked = false;
+      twoQNoneRadio.addEventListener('mousedown', (e) => {
+        lastNoneChecked = twoQNoneRadio.checked;
+      });
+      twoQNoneRadio.addEventListener('click', (e) => {
+        // ถ้ากดซ้ำที่ติ๊กอยู่ ให้ uncheck
+        if (lastNoneChecked) {
+          twoQNoneRadio.checked = false;
+          twoQCheckboxes.forEach(cb => {
+            cb.disabled = false;
+          });
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      });
       twoQNoneRadio.addEventListener('change', (e) => {
         if (e.target.checked) {
-          // uncheck และ disable 2q1, 2q2
           twoQCheckboxes.forEach(cb => {
             cb.checked = false;
             cb.disabled = true;
           });
           appState.formData.assessments.twoQ = [];
         } else {
-          // enable 2q1, 2q2
           twoQCheckboxes.forEach(cb => {
             cb.disabled = false;
           });
@@ -375,7 +380,6 @@ const pageManager = {
       });
     }
 
-    // คำถามความรู้สึก
     document.querySelectorAll('.feeling-option').forEach(option => {
       option.addEventListener('click', () => {
         const value = option.dataset.value;
@@ -394,32 +398,14 @@ const pageManager = {
         }
       });
     });
-
-    // คำถาม 9Q
-    for (let i = 1; i <= 9; i++) {
-      const pageId = `9q-page${i}`;
-      const questionDiv = document.getElementById(pageId);
-      if (questionDiv) {
-        const buttons = questionDiv.querySelectorAll('.option-btn');
-        buttons.forEach(btn => {
-          btn.addEventListener('click', () => {
-            buttons.forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            appState.formData.assessments.nineQ[i - 1] = parseInt(btn.dataset.value);
-          });
-        });
-      }
-    }
   },
 
   resetApp() {
-    // รีเซ็ตแบบฟอร์ม
     document.getElementById('nickname').value = '';
     document.getElementById('age').value = '';
     document.getElementById('gender').value = '';
     document.getElementById('occupation').value = '';
 
-    // รีเซ็ตข้อมูลแอป
     appState.formData = {
       personalInfo: {
         nickname: '',
@@ -440,7 +426,6 @@ const pageManager = {
       results: {}
     };
 
-    // รีเซ็ตการเลือกทั้งหมด
     document.querySelectorAll('.option-btn.selected').forEach(btn => {
       btn.classList.remove('selected');
     });
@@ -455,7 +440,6 @@ const pageManager = {
   }
 };
 
-// 5. ระบบคำนวณและประเมินผล
 const assessmentCalculator = {
   calculateST5Score() {
     return appState.formData.assessments.st5.reduce((sum, value) => sum + (value || 0), 0);
@@ -467,31 +451,31 @@ const assessmentCalculator = {
 
   displayST5Result() {
     const score = this.calculateST5Score();
-    const st5ScoreElement = document.getElementById('st5-score');
+    const st5ScoreElement = document.getElementById('st5-honest-score');
     const st5MessageElement = document.getElementById('st5-message');
-    
-    if (st5ScoreElement) st5ScoreElement.textContent = score;
-    
-    // ข้อความสุ่มแบบอบอุ่น
+    if (st5ScoreElement) st5ScoreElement.textContent = score + ' คะแนน';
+
     const warmMessages = [
-      `จากคำตอบที่คุณให้มา<br>ดูเหมือนว่าคุณยังสามารถรับมือกับความเครียดได้ดีอยู่<br>แต่ถึงแม้ทุกอย่างดูเหมือนจะโอเค<br>คุณก็ยังมีสิทธิ์เหนื่อย มีสิทธิ์พัก <br>และมีสิทธิ์พูดว่า “ไม่ไหว” ได้เสมอ<br>อย่าลืมดูแลตัวเองเหมือนที่คุณดูแลคนอื่นนะ <br>ถ้าเมื่อไรที่คุณต้องการใครสักคน “เราอยู่ตรงนี้เสมอ”`,
-      `หัวใจของคุณดูเหมือนยังมีพลังในการรับมือกับสิ่งต่างๆ <br>และนั่น…ก็น่าชื่นชมมาก<br>แต่เราอยากบอกไว้นิดนึงว่าคนที่ดู “โอเค” <br>ก็มีวันที่เปราะบางได้เหมือนกัน<br>คุณไม่ต้องเข้มแข็งตลอดเวลา <br>แค่ได้ยอมรับความรู้สึกของตัวเองในแต่ละวัน ก็เพียงพอแล้ว`,
-      `ตอนนี้คุณอาจยังไม่ต้องไปต่อกับแบบทดสอบถัดไป <br>และนั่นไม่ใช่เพราะคุณไม่สำคัญ — แต่เพราะใจของคุณบอกว่า <br>“ตอนนี้พอแล้ว”<br>ถ้าเมื่อไรคุณอยากกลับมา <br>เราจะรออยู่ตรงนี้พร้อมจะฟังเสมอ <br>ไม่ว่าคุณจะเป็นยังไงในวันนั้นก็ตาม`
+      `จากคำตอบที่คุณให้มาดูเหมือนว่าคุณยังสามารถรับมือกับความเครียดได้ดีอยู่<br>แต่ถึงแม้ทุกอย่างดูเหมือนจะโอเคคุณก็ยังมีสิทธิ์เหนื่อย มีสิทธิ์พัก และมีสิทธิ์พูดว่า “ไม่ไหว” ได้เสมอ<br>อย่าลืมดูแลตัวเองเหมือนที่คุณดูแลคนอื่นนะ<br>ถ้าเมื่อไรที่คุณต้องการใครสักคน “เราอยู่ตรงนี้เสมอ”`,
+      `หัวใจของคุณดูเหมือนยังมีพลังในการรับมือกับสิ่งต่าง ๆ และนั่น…ก็น่าชื่นชมมาก<br>แต่เราอยากบอกไว้นิดนึงว่าคนที่ดู “โอเค” ก็มีวันที่เปราะบางได้เหมือนกัน<br>คุณไม่ต้องเข้มแข็งตลอดเวลา<br>แค่ได้ยอมรับความรู้สึกของตัวเองในแต่ละวัน ก็เพียงพอแล้ว`,
+      `ตอนนี้คุณอาจยังไม่ต้องไปต่อกับแบบทดสอบถัดไป<br>และนั่นไม่ใช่เพราะคุณไม่สำคัญ — แต่เพราะใจของคุณบอกว่า “ตอนนี้พอแล้ว”<br>ถ้าเมื่อไรคุณอยากกลับมา เราจะรออยู่ตรงนี้ พร้อมจะฟังเสมอ<br>ไม่ว่าคุณจะเป็นยังไงในวันนั้นก็ตาม`
     ];
 
     if (score <= 7) {
-      // สุ่มข้อความอบอุ่น
       const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
       if (st5MessageElement) st5MessageElement.innerHTML = msg;
-
-      // === เพิ่มบรรทัดนี้ ===
       this.submitResults();
+      return;
     } else if (score >= 8) {
-      if (st5MessageElement) st5MessageElement.innerHTML = '';
+      // Show st5-honest-result page and display score
+      const st5HonestScoreElem = document.getElementById('st5-score');
+      if (st5HonestScoreElem) st5HonestScoreElem.textContent = score + ' คะแนน';
+      pageManager.showPage('st5-honest-result');
+      this.submitResults();
+      return;
     } else {
       if (st5MessageElement) st5MessageElement.textContent = 'คะแนนของคุณอยู่ในระดับปานกลาง ควรสังเกตอาการและพักผ่อนให้เพียงพอ';
     }
-
     appState.formData.results.st5 = {
       score,
       message: st5MessageElement ? st5MessageElement.textContent : ''
@@ -507,9 +491,8 @@ const assessmentCalculator = {
     }
     
     if (score >= 1) {
-      // แสดงหน้า 2Q Honest Result และสุ่มข้อความ
       const honestMessages = [
-        'จากคำตอบของคุณ…ดูเหมือนภายในใจของคุณ<br>กำลังบอกอะไรบางอย่างกับเรา<br>บางที คุณอาจกำลังต้องการให้ใครสักคน <br>“ที่รับฟังอย่างเข้าใจ”<br>แบบประเมินถัดไปจะช่วยให้คุณได้ฟังเสียงภายในใจตัวเองลึกขึ้นอีกนิดไม่ใช่เพื่อหาว่าคุณผิดตรงไหน<br>แต่เพื่อให้คุณได้รู้ว่า…“ความรู้สึกแบบนี้” <br>มีที่ของมันเสมอ และไม่จำเป็นต้องซ่อน',
+        'จากคำตอบของคุณ…ดูเหมือนภายในใจของคุณ<br>กำลังบอกอะไรบางอย่างกับเรา<br>บางที คุณอาจกำลังต้องการให้ใครสักคน <br>“ที่รับฟังอย่างเข้าใจ”<br>แบบประเมินถัดไปจะช่วยให้คุณได้ฟังเสียงภายในใจตัวเอง<br>ลึกขึ้นอีกนิดไม่ใช่เพื่อหาว่าคุณผิดตรงไหน<br>แต่เพื่อให้คุณได้รู้ว่า…“ความรู้สึกแบบนี้” <br>มีที่ของมันเสมอ และไม่จำเป็นต้องซ่อน',
         'คุณตอบคำถามที่ผ่านมาอย่างกล้าหาญมากและตรงนี้…<br>คืออีกหนึ่งก้าวที่อาจทำให้คุณเข้าใจหัวใจตัวเองมากขึ้น <br>ไม่มีอะไรน่ากลัวในแบบประเมินถัดไป <br>มีแค่ “เรา” ที่จะอยู่ตรงนี้<br>พร้อมฟังคุณทุกคำตอบ <br>โดยไม่ตัดสินเลยแม้แต่นิดเดียว',
         'ถ้าใจคุณกำลังเหนื่อย…<br>แบบประเมินต่อไปนี้ไม่ได้มีไว้ตอกย้ำ<br>แต่มันมีไว้ให้คุณ “แสดงออกมา”เป็นพื้นที่ปลอดภัย <br>เพราะทุกความรู้สึกที่คุณมี มีความหมาย <br>และควรได้รับการรับฟัง <br>ถ้าคุณพร้อม…เราจะก้าวไปด้วยกัน'
       ];
@@ -519,11 +502,10 @@ const assessmentCalculator = {
       pageManager.showPage('2q-honest-result-page');
       return;
     } else if (score === 0) {
-      // กรณีคะแนนรวม = 0
       const warmMessages = [
-        'จากคำตอบของคุณตอนนี้ยังไม่พบสัญญาณที่เข้าข่ายภาวะซึมเศร้า <br>แต่นั่นไม่ได้แปลว่าคุณต้องรู้สึกดีตลอดเวลา <br>การเผชิญปัญหา และ การจัดการอารมณ์ได้ดี <br>ซึ่งเป็นสิ่งที่ดี ทุกความรู้สึกของคุณมีคุณค่าเสมอ<br>และคุณก็ยังสมควรได้รับการ Heal ใจ <br>… ไม่ว่าคะแนนจะเท่าไร',
-        'ดูเหมือนตอนนี้ ใจของคุณยังพอมีแรงพยุงตัวเองอยู่ <br>ขอบคุณที่ดูแลตัวเองได้มาถึงตรงนี้นะ <br>และถ้าเมื่อไรคุณเริ่มรู้สึกว่า “ไม่ไหว” <br>อย่าลืมว่า คุณไม่ต้องรอให้พังก่อนจึงจะขอความช่วยเหลือได้',
-        'แบบทดสอบบอกว่า…คุณอาจยังไม่อยู่ในช่วงที่มีภาวะซึมเศร้าชัดเจน <br>แต่แบบทดสอบไม่ได้รู้ว่า เมื่อคืนคุณนอนหลับดีไหม<br>หรือคุณฝืนยิ้มมานานแค่ไหนแล้ว <br>ถ้าคุณยังรู้สึกว่า “ใจมันยังไม่เบา” <br>การพูดคุยกับใครสักคนก็ยังเป็นสิ่งที่ดีเสมอ'
+        'จากคำตอบของคุณตอนนี้ยังไม่พบ<br>สัญญาณที่เข้าข่ายภาวะซึมเศร้า <br>แต่นั่นไม่ได้แปลว่าคุณต้องรู้สึกดีตลอดเวลา <br>การเผชิญปัญหา และ การจัดการอารมณ์ได้ดี <br>ซึ่งเป็นสิ่งที่ดี ทุกความรู้สึกของคุณมีค่าเสมอ<br>และคุณก็ยังสมควรได้รับการ Heal ใจ <br>… ไม่ว่าคะแนนจะเท่าไร',
+        'ดูเหมือนตอนนี้ <br>ใจของคุณยังพอมีแรงพยุงตัวเองอยู่ <br>ขอบคุณที่ดูแลตัวเองได้มาถึงตรงนี้นะ <br>และถ้าเมื่อไรคุณเริ่มรู้สึกว่า “ไม่ไหว” <br>อย่าลืมว่า คุณไม่ต้องรอให้พังก่อนจึงจะขอความช่วยเหลือได้',
+        'แบบทดสอบบอกว่า…<br>คุณอาจยังไม่อยู่ในช่วงที่มีภาวะซึมเศร้าชัดเจน <br>แต่แบบทดสอบไม่ได้รู้ว่า เมื่อคืนคุณนอนหลับดีไหม<br>หรือคุณฝืนยิ้มมานานแค่ไหนแล้ว <br>ถ้าคุณยังรู้สึกว่า “ใจมันยังไม่เบา” <br>การพูดคุยกับใครสักคนก็ยังเป็นสิ่งที่ดีเสมอ'
       ];
       const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
       if (messageElement) messageElement.innerHTML = msg;
@@ -629,7 +611,7 @@ const assessmentCalculator = {
 
   async submitResults() {
     try {
-      if (this.isSubmitting) return; // ป้องกันซ้ำ
+      if (this.isSubmitting) return;
       this.isSubmitting = true;
       
       const submissionData = {
@@ -640,7 +622,6 @@ const assessmentCalculator = {
         }
       };
       
-      // ถ้ามี _id ให้ส่งไปด้วย
       if (appState.formData._id) {
         submissionData._id = appState.formData._id;
       }
@@ -654,7 +635,6 @@ const assessmentCalculator = {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       
-      // ถ้า server ส่ง _id กลับมา ให้เก็บไว้
       if (data.insertedId || data._id) {
         appState.formData._id = data.insertedId || data._id;
       }
@@ -667,20 +647,172 @@ const assessmentCalculator = {
   }
 };
 
-// 6. เริ่มต้นแอปพลิเคชัน
 function initApp() {
   musicManager.init();
-  musicManager.playMusic(); // เล่นเพลงทันทีเมื่อเริ่มต้น
+  musicManager.playMusic();
   pageManager.init();
 
-  // แสดงหน้าแรก
   pageManager.showPage('welcome-page');
 }
 
-// รันแอปพลิเคชันเมื่อหน้าเว็บโหลดเสร็จ
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', function() {
+  initApp();
 
-// ===== [Validation] =====
+  // Navigation for all .next-btn and .prev-btn
+  document.body.addEventListener('click', function(e) {
+    // NEXT BUTTONS
+    const nextBtn = e.target.closest('button.next-btn');
+    if (nextBtn) {
+      const id = nextBtn.id;
+      if (!id) return;
+
+      // Validation for required fields before navigation
+      const currentPage = document.querySelector('.page.active');
+      if (currentPage) {
+        const pageId = currentPage.id;
+        if (!validateCurrentPage(pageId)) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return false;
+        }
+      }
+
+      // Special case for start-btn (play music and go to rama9-page)
+      if (id === 'start-btn') {
+        if (window.musicManager && typeof musicManager.playMusic === 'function') {
+          musicManager.playMusic();
+        }
+        if (window.pageManager && typeof pageManager.showPage === 'function') {
+          pageManager.showPage('rama9-page');
+        }
+        return;
+      }
+
+      // Use navMap for all other next-btns
+      if (window.pageManager && typeof pageManager.showPage === 'function') {
+        const navMap = pageManager?.navMap || {
+          // fallback navMap (should match the one in setupNavigation)
+          'to-tree-page': 'tree-page',
+          'to-personal-info-page': 'personal-info-page',
+          'to-age-page': 'age-page',
+          'to-gender-page': 'gender-page',
+          'to-occupation-page': 'occupation-page',
+          'to-before-page': 'before-page',
+          'to-before2-page': 'before2-page',
+          'to-reflection-page': 'reflection-page',
+          'to-feeling-page': 'feeling-page',
+          'to-onem-page': 'onem-page',
+          'to-st5-page1': 'st5-page1',
+          'to-st5-page2': 'st5-page2',
+          'to-st5-page3': 'st5-page3',
+          'to-st5-page4': 'st5-page4',
+          'to-st5-page5': 'st5-page5',
+          'to-st5-result-page': 'st5-result-page',
+          'to-st5-special-result': 'st5-special-result',
+          'to-thanks-page': 'thanks-page',
+          'to-st5-honest-result': 'st5-honest-result',
+          'to-st5-special-result-2': 'st5-special-result-2',
+          'to-2q-page': '2q-page',
+          'to-2q-result-page': '2q-result-page',
+          'to-thanks-page-2': 'thanks-page-2',
+          'to-2q-honest-result-page': '2q-honest-result-page',
+          'to-2q-special-result-page': '2q-special-result-page',
+          'to-9q-page1': '9q-page1',
+          'to-9q-page2': '9q-page2',
+          'to-9q-page3': '9q-page3',
+          'to-9q-page4': '9q-page4',
+          'to-9q-page5': '9q-page5',
+          'to-9q-page6': '9q-page6',
+          'to-9q-page7': '9q-page7',
+          'to-9q-page8': '9q-page8',
+          'to-9q-page9': '9q-page9',
+          'to-9q-result-page': '9q-result-page',
+          'to-9q-thankyou-page': '9q-thankyou-page',
+          'to-honest-9q-result': '9q-honest-result-page',
+          'to-9q-special-result-page': '9q-special-result-page',
+          'to-final-result-page': 'final-result-page',
+          'to-home': 'welcome-page'
+        };
+        if (navMap[id]) {
+          pageManager.showPage(navMap[id]);
+        }
+      }
+      return;
+    }
+
+    // PREV BUTTONS
+    const prevBtn = e.target.closest('button.prev-btn');
+    if (prevBtn) {
+      const id = prevBtn.id;
+      if (!id) return;
+
+      // Use prevNavMap for all prev-btns
+      const prevNavMap = {
+        // Personal info flow
+        'back-to-welcome': 'welcome-page',
+        'back-to-personal-info': 'personal-info-page',
+        'back-to-age-page': 'age-page',
+        'back-to-gender-page': 'gender-page',
+        'back-to-occupation-page': 'occupation-page',
+        // Before/Reflection/Feeling
+        'back-to-before-page': 'before-page',
+        'back-to-reflection-page': 'reflection-page',
+        'back-to-feeling-page': 'feeling-page',
+        // ST5
+        'back-to-onem-page': 'onem-page',
+        'back-to-st5-page1': 'st5-page1',
+        'back-to-st5-page2': 'st5-page2',
+        'back-to-st5-page3': 'st5-page3',
+        'back-to-st5-page4': 'st5-page4',
+        'back-to-st5-page5': 'st5-page5',
+        'back-to-st5-result-page': 'st5-result-page',
+        'back-to-st5-honest-result': 'st5-honest-result',
+        // ST5 special
+        'back-to-st5-special-result': 'st5-result-page',
+        'back-to-st5-special-result-2': 'st5-honest-result',
+        // 2Q
+        'back-to-2q-page': '2q-page',
+        'back-to-2q-result-page': '2q-result-page',
+        'back-to-2q-honest-result-page': '2q-honest-result-page',
+        'back-to-2q-special-result-page': '2q-honest-result-page',
+        // 9Q
+        'back-to-2q-special-result-page': '2q-special-result-page',
+        'back-to-9q-page1': '9q-page1',
+        'back-to-9q-page2': '9q-page2',
+        'back-to-9q-page3': '9q-page3',
+        'back-to-9q-page4': '9q-page4',
+        'back-to-9q-page5': '9q-page5',
+        'back-to-9q-page6': '9q-page6',
+        'back-to-9q-page7': '9q-page7',
+        'back-to-9q-page8': '9q-page8',
+        'back-to-9q-page9': '9q-page9',
+        'back-to-9q-result': '9q-result-page',
+        'back-to-9q-honest-result-page': '9q-page9',
+        'back-to-9q-special-result-page': '9q-honest-result-page',
+        'back-to-previous-result': 'final-result-page',
+        // Thanks/Restart
+        'back-to-thanks-page': 'thanks-page',
+        'back-to-thanks-page-2': 'thanks-page-2',
+        'back-to-rama9-page': 'rama9-page'
+      };
+      if (prevNavMap[id]) {
+        if (window.pageManager && typeof pageManager.showPage === 'function') {
+          pageManager.showPage(prevNavMap[id]);
+        }
+      }
+    }
+  });
+});
+
+document.getElementById('start-btn')?.addEventListener('click', function() {
+  if (window.musicManager && typeof musicManager.playMusic === 'function') {
+    musicManager.playMusic();
+  }
+  if (window.pageManager && typeof pageManager.showPage === 'function') {
+    pageManager.showPage('rama9-page');
+  }
+});
+
 function showNoti(message) {
   let noti = document.getElementById('custom-noti');
   if (!noti) {
@@ -710,7 +842,6 @@ function showNoti(message) {
 }
 
 function validateCurrentPage(pageId) {
-  // Personal Info
   if (pageId === 'personal-info-page') {
     const nickname = document.getElementById('nickname');
     if (!nickname.value.trim()) {
@@ -744,11 +875,8 @@ function validateCurrentPage(pageId) {
     }
   }
   if (pageId === 'reflection-page') {
-    const selected = document.querySelector('.feeling-option.selected');
-    if (!selected) {
-      showNoti('กรุณาเลือกข้อความที่ตรงกับความรู้สึกของคุณ');
-      return false;
-    }
+    // ไม่ต้อง validate อะไรแล้ว ให้ผ่านได้เสมอ
+    return true;
   }
   if (pageId === 'feeling-page') {
     const checked = document.querySelectorAll('input[name="feelings"]:checked');
@@ -757,7 +885,6 @@ function validateCurrentPage(pageId) {
       return false;
     }
   }
-  // ST-5
   for (let i = 1; i <= 5; i++) {
     if (pageId === `st5-page${i}`) {
       const selected = document.querySelector(`#st5-page${i} .option-btn.selected`);
@@ -767,7 +894,6 @@ function validateCurrentPage(pageId) {
       }
     }
   }
-  // 9Q
   for (let i = 1; i <= 9; i++) {
     if (pageId === `9q-page${i}`) {
       const selected = document.querySelector(`#9q-page${i} .option-btn.selected`);
@@ -780,19 +906,52 @@ function validateCurrentPage(pageId) {
   return true;
 }
 
-// ===== [Navigation Guard] =====
 document.body.addEventListener('click', function (e) {
   const btn = e.target.closest('button');
   if (!btn) return;
   const id = btn.id;
   if (!id) return;
-  
-  // ตรวจสอบปุ่มที่เป็น next-btn เท่านั้น
+
   if (btn.classList.contains('next-btn')) {
-    // หา page ปัจจุบัน
     const currentPage = document.querySelector('.page.active');
     if (!currentPage) return;
     const pageId = currentPage.id;
+    if (["personal-info-page","age-page","gender-page","occupation-page"].includes(pageId)) {
+      if (window.pageManager && typeof pageManager.savePersonalInfo === 'function') {
+        pageManager.savePersonalInfo();
+      }
+    }
+    // --- FIX: allow next for 9Q pages if any .option-btn.selected exists ---
+    if (/^9q-page[1-9]$/.test(pageId)) {
+      const selected = currentPage.querySelector('.option-btn.selected');
+      if (!selected) {
+        showNoti('กรุณากรอกคำตอบ');
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+      }
+      // go to next page (simulate navigation)
+      const navMap = {
+        'to-9q-page2': '9q-page2',
+        'to-9q-page3': '9q-page3',
+        'to-9q-page4': '9q-page4',
+        'to-9q-page5': '9q-page5',
+        'to-9q-page6': '9q-page6',
+        'to-9q-page7': '9q-page7',
+        'to-9q-page8': '9q-page8',
+        'to-9q-page9': '9q-page9',
+        'to-9q-result-page': '9q-result-page',
+      };
+      if (navMap[id]) {
+        if (window.pageManager && typeof pageManager.showPage === 'function') {
+          pageManager.showPage(navMap[id]);
+        }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+      }
+    }
+    // --- END FIX ---
     if (!validateCurrentPage(pageId)) {
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -800,3 +959,17 @@ document.body.addEventListener('click', function (e) {
     }
   }
 });
+
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(function(page) {
+    page.classList.remove('active');
+    page.style.display = 'none';
+  });
+  var next = document.getElementById(pageId);
+  if (next) {
+    next.classList.add('active');
+    next.style.display = '';
+  }
+}
+
+window.pageManager = pageManager;

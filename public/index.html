@@ -29,7 +29,7 @@
           <p class="welcome-message">
             แบบทดสอบนี้ไม่เร่งรีบ<br>ไม่มีคำตอบที่ผิด <br>เราอยากชวนคุณใช้เวลาสั้นๆ<br>ในการทบทวนตัวเอง<br>คำตอบของคุณ<br>จะถูกเก็บไว้เป็นความลับ<br>อย่างปลอดภัย<br>และ ไม่มีการตัดสินคุณ…<br>เพียงคุณเท่านั้นที่จะได้เห็น<br>"บางอย่าง"<br>ซึ่งซ่อนอยู่ภายในจิตใจของคุณ<br>
           </p>
-          <button id="start-btn" class="nav-btn next-btn">
+          <button id="start-btn" class="nav-btn next-btn" type="button">
             เริ่มทำแบบประเมิน <i class="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -87,7 +87,7 @@
           <div class="question-text">คุณอยากให้เราเรียกคุณว่าอะไรดี? <br> (ชื่อเล่น หรือนามแฝงก็ได้นะ)</div>
           <input type="text" id="nickname" class="form-input" placeholder="กรุณากรอกชื่อเล่น" required>
           <div class="nav-buttons">
-            <button class="nav-btn prev-btn" id="back-to-tree-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn prev-btn" id="back-to-welcome"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-age-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -137,6 +137,39 @@
           <input type="text" id="occupation" class="form-input" placeholder="กรุณากรอกอาชีพหรือหน้าที่" required>
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-gender-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-before-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Before Page -->
+    <div class="page" id="before-page">
+      <div class="sub-container">
+        <div class="question-container">
+          <div class="question-text" style="text-align:center;font-size:1.3rem;">ก่อนจะเริ่ม…</div>
+          <div class="nav-buttons" style="margin-top:32px;display:flex;justify-content:center;gap:16px;">
+            <button class="nav-btn prev-btn" id="back-to-occupation-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-before2-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Before2 Page -->
+    <div class="page" id="before2-page">
+      <div class="sub-container">
+        <div class="question-container">
+          <div class="question-text" style="text-align:center;font-size:1.15rem;line-height:2;">
+            ขณะที่เสียงค่อย ๆ ไหลผ่านใจคุณ<br>
+            เราอยากชวนคุณ<br>
+            อ่านข้อความพวกนี้ทีละประโยค<br>
+            ไม่ต้องรีบ หรือ “เข้าใจ” ทั้งหมด<br>
+            แค่สังเกตว่า ประโยคไหน <br>
+            “ตรงกับความรู้สึกคุณบ้าง”
+          </div>
+          <div class="nav-buttons" style="margin-top:32px;display:flex;justify-content:center;gap:16px;">
+            <button class="nav-btn prev-btn" id="back-to-before-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-reflection-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
@@ -170,6 +203,7 @@
       </div>
     </div>
 
+
     <!-- Feeling Page -->
     <div class="page" id="feeling-page">
       <div class="sub-container">
@@ -199,7 +233,47 @@
           </div>
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-reflection-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-onem-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- One Month Reflection Page -->
+    <div class="page" id="onem-page">
+      <div class="sub-container">
+        <div class="question-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh;">
+          <div class="result-message" style="text-align: center; font-size: 1.15rem; line-height: 2;">
+            …เราอยากให้คุณทบทวนคุณเกี่ยวกับ<br>
+            ความรู้สึกในช่วง 1 เดือนที่ผ่านมา<br>
+            ตอบแค่ตามจริง ไม่ต้องคิดนาน <br>
+            ไม่มีผิด ไม่มีถูก<br>
+            มีแค่ “เราอยู่ตรงนี้” กับคุณ
+          </div>
+          <div class="nav-buttons" style="margin-top: 32px;">
+            <button class="nav-btn prev-btn" id="back-to-feeling-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-st5-page1">ต่อไป <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ST-5 Assessment Pages -->
+    <div class="page" id="st5-page1">
+      <div class="sub-container">
+        <div class="question-container">
+          <div class="question-text">1. คุณรู้สึกนอนไม่หลับ หรือนอนไม่พอ</div>
+          <div class="options-container">
+            <button class="option-btn" data-value="0">ไม่เลย</button>
+            <button class="option-btn" data-value="1">เล็กน้อย</button>
+            <button class="option-btn" data-value="2">ปานกลาง</button>
+            <button class="option-btn" data-value="3">มาก</button>
+            <button class="option-btn" data-value="4">มากที่สุด</button>
+          </div>
+          <div class="nav-buttons">
+            <!-- ปรับปุ่มย้อนกลับให้กลับไป onem-page -->
+            <button class="nav-btn prev-btn" id="back-to-onem-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+            <button class="nav-btn next-btn" id="to-st5-page2">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
@@ -306,17 +380,17 @@
 
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-st5-page5"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-            <button class="nav-btn next-btn" id="to-st5-special-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
+            <button class="nav-btn next-btn" id="to-st5-special-result">ต่อไป <i class="fas fa-arrow-right"></i></button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- ST-5 Special Result Page -->
-    <div class="page" id="st5-special-result-page">
+    <div class="page" id="st5-special-result">
       <div class="sub-container">
         <div class="question-container">
-          <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
+          <div class="result-message" style="font-size:1.15rem;line-height:2;text-align:center;">
             พระบาทสมเด็จพระบรมชนกาธิเบศร <br>มหาภูมิพลอดุลยเดชมหาราช บรมนาถบพิตร <br>กล่าวไว้ว่า<br><br>
             “ความพอเพียง” <br>ไม่ได้หมายถึงแค่การใช้ชีวิตเรียบง่าย <br>แต่ยังหมายถึงการรู้จัก “พอดี” กับใจตัวเอง<br><br>
             ขอชื่นชมที่คุณดูแลใจตัวเองได้ดี <br>และไม่ลืมหยุดพักเมื่อถึงเวลา
@@ -344,14 +418,14 @@
             ที่ยังทำหน้าที่ดูแลใจของตัวเองอย่างต่อเนื่อง<br>
             และจำไว้นะคะ…คุณไม่ต้องเดินคนเดียว<br>
             ถ้าวันไหนอยากพูดคุย อยากพัก ขอให้รู้ว่า <br>เราอยู่ตรงนี้…พร้อมฟังเสมอค่ะ<br>
-            กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณ<br>แล้วพิมพ์ในช่องแชทว่า “ระดับ 1”<br><br>
-            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">คลิกที่นี่เพื่อพูดคุยกับเราใน LINE</a>
-            <div class="nav-buttons" style="margin-top:32px;">
-            <button class="nav-btn prev-btn" id="back-to-st5-special-result-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-            <button class="nav-btn next-btn" id="to-final-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
-          </div>
+            <br>
+            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณ</a>
+            <br>แล้วพิมพ์ในช่องแชทว่า “ระดับ 1”<br><br>
           </div>
         </div>
+    <button class="fab-restart" id="restart-assessment-fab" style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#3498db;color:#fff;border:none;border-radius:50px;padding:16px 24px;font-size:1.05rem;box-shadow:0 2px 8px rgba(52,152,219,0.18);cursor:pointer;display:flex;align-items:center;gap:8px;">
+      <i class="fas fa-redo"></i> ทำแบบทดสอบอีกครั้ง
+    </button>
       </div>
     </div>
 
@@ -364,10 +438,13 @@
             <b>ขอบคุณที่ซื่อสัตย์กับความรู้สึกของตัวเองจนถึงตรงนี้นะ</b><br><br>
             จากคำตอบที่คุณให้มาดูเหมือนว่าหัวใจของคุณ<br>
             อาจจะกำลังรับมือกับอะไรบางอย่างอยู่<br>
-            เราเลยอยากชวนคุณฟัง “เสียงภายในใจตัวเอง” อีกนิด<br>
-            … ด้วยคำถามสั้น ๆ ต่อไปนี้ไม่ใช่เพื่อวินิจฉัย ไม่ใช่เพื่อตัดสิน<br>
+            เราเลยอยากชวนคุณฟัง <br>
+            “เสียงภายในใจตัวเอง” อีกนิด<br>
+            … ด้วยคำถามสั้น ๆ ต่อไปนี้<br>
+            ไม่ใช่เพื่อวินิจฉัย ไม่ใช่เพื่อตัดสิน<br>
             … แต่เพื่อให้คุณเข้าใจตัวเองมากขึ้น<br>
-            และถ้าคุณพร้อม…เราจะอยู่ตรงนี้ไปกับคุณทีละคำตอบ
+            และถ้าคุณพร้อม…<br>
+            เราจะอยู่ตรงนี้ไปกับคุณทีละคำตอบ
           </div>
           <div class="nav-buttons">
            <button class="nav-btn prev-btn" id="back-to-st5-page5"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
@@ -382,9 +459,9 @@
         <div class="question-container">
           <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
             พระบาทสมเด็จพระบรมชนกาธิเบศร <br>มหาภูมิพลอดุลยเดชมหาราช บรมนาถบพิตร <br>เคยทรงแนะนำว่า<br><br>
-            “ให้หัดคิดให้รอบคอบ และมองทุกอย่างตามความเป็นจริง”<br><br>
+            “ให้หัดคิดให้รอบคอบ <br>และมองทุกอย่างตามความเป็นจริง”<br><br>
             คำแนะนำนี้ ไม่ได้สอนให้เราเข้มแข็งตลอดเวลา<br>
-            แต่สอนให้เรายอมรับว่า ความจริงบางครั้ง ความอ่อนแอ<br>อาจเป็นบททดสอบหนึ่งของชีวิต
+            แต่สอนให้เรายอมรับว่า <br>ความจริงบางครั้ง ความอ่อนแอ<br>อาจเป็นบททดสอบหนึ่งของชีวิต
           </div>
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-st5-honest-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
@@ -410,8 +487,8 @@
               <label for="2q2">2. คุณรู้สึกเบื่อ ทำอะไรก็ไม่เพลิดเพลิน</label>
             </div>
             <div class="checkbox-option" style="margin-top:10px;">
-              <input type="checkbox" id="2q-none" name="twoQ-none" value="none">
-              <label for="2q-none">ไม่มีทั้ง 2 ข้อ</label>
+              <input type="radio" id="2q-none" name="twoQ-none" value="none">
+              <label for="2q-none"><b>ไม่มีทั้ง 2 ข้อ</b></label>
             </div>
           </div>
 
@@ -441,17 +518,18 @@
     <div class="page" id="thanks-page-2">
       <div class="sub-container">
         <div class="question-container">
-          <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
+          <div class="result-message" style="font-size:1.15rem;line-height:2;text-align:center;">
             <b>ขอบคุณที่ตอบแบบประเมินนะ 🌿</b><br><br>
             การดูแลใจตัวเองเป็นสิ่งสำคัญมาก แม้ในวันที่เรารู้สึกว่า “ไม่เป็นไร”<br>
             ถ้าคุณอยากพูดคุยหรือหาวิธีผ่อนคลายใจเพิ่มเติม เรายินดีอยู่ตรงนี้เพื่อคุณเสมอ 💬<br>
-            👉 กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณแล้วพิมพ์ “ระดับ 2 ”ในช่องแชท
-            <div class="nav-buttons" style="margin-top:32px;">
-            <button class="nav-btn prev-btn" id="back-to-2q-result-page"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-            <button class="nav-btn next-btn" id="to-final-result-page">ต่อไป <i class="fas fa-arrow-right"></i></button>
-          </div>
+            <br>
+            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณ</a>
+            แล้วพิมพ์ในช่องแชทว่า “ระดับ 2”<br><br>
           </div>
         </div>
+    <button class="fab-restart" id="restart-assessment-fab-2" style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#3498db;color:#fff;border:none;border-radius:50px;padding:16px 24px;font-size:1.05rem;box-shadow:0 2px 8px rgba(52,152,219,0.18);cursor:pointer;display:flex;align-items:center;gap:8px;">
+      <i class="fas fa-redo"></i> ทำแบบทดสอบอีกครั้ง
+    </button>
       </div>
     </div>
 
@@ -475,8 +553,8 @@
         <div class="question-container">
           <div class="result-message" style="font-size:1.0rem;line-height:2;text-align:center;">
             พระบาทสมเด็จพระบรมชนกาธิเบศร <br>มหาภูมิพลอดุลยเดชมหาราช บรมนาถบพิตร <br>เคยตรัสไว้ว่า<br><br>
-            “การแก้ปัญหาคือการค่อย ๆ ทำ ค่อย ๆ แก้ อย่าใจร้อน”<br><br>
-            แบบประเมินนี้ไม่ใช่การเร่งตัดสิน แต่คือการค่อย ๆ เข้าใจ<br>
+            “การแก้ปัญหาคือการค่อย ๆ ทำ <br>ค่อย ๆ แก้ อย่าใจร้อน”<br><br>
+            แบบประเมินนี้ไม่ใช่การเร่งตัดสิน <br>แต่คือการค่อย ๆ เข้าใจ<br>
             และเราจะเดินไปกับคุณอย่างไม่เร่งเร้า
           </div>
           <div class="nav-buttons" style="margin-top:32px;">
@@ -486,7 +564,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- 9Q Assessment Pages (ข้อละหน้า) -->
     <div class="page" id="9q-page1">
       <div class="sub-container">
@@ -645,39 +723,44 @@
     <div class="page" id="9q-result-page">
       <div class="sub-container">
         <div class="question-container">
-          <div class="result-score" id="9q-score">0</div>
+          <div class="result-score" id="9q-score" style="font-size:2.2rem;color:var(--accent-color);margin-bottom:12px;text-align:center;"></div>
+          <div class="result-message" id="9q-message" style="text-align:center;">
 
-            ไม่มีอาการของภาวะซึมเศร้า<br>หรือมีอาการของภาวะซึมเศร้าระดับน้อยมาก
+            <!-- ...ข้อความผลรวมคะแนนและคำแนะนำ... -->
+          </div>
           <div class="nav-buttons">
             <button class="nav-btn prev-btn" id="back-to-9q-page9"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="to-9q-thankyou-page">ต่อไป<i class="fas fa-arrow-right"></i></button>
           </div>
-          </div>
-        </div>
-      </div>
-    
-    <!-- 9Q Thank You Page (แก้ไขแล้ว) -->
-    <div class="page" id="9q-thankyou-page">
-      <div class="sub-container">
-        <div class="question-container">
-          <div class="result-message" style="text-align: center;">
-            <b style="font-size: 1.5rem;">ขอบคุณที่เปิดใจตอบคำถามเหล่านี้ 💙</b><br><br>
-            บางความรู้สึกอาจหนัก แต่คุณไม่ได้แบกมันคนเดียวอีกต่อไป<br>
-            เราได้เตรียม “คำแนะนำในการดูแลใจ” <br>
-            ที่เหมาะกับความรู้สึกของคุณไว้แล้ว พร้อมฟังคุณเสมอ<br>
-            กดที่นี่เพื่อพูดคุยและรับวิธีผ่อนคลายใจแบบเฉพาะคุณ <br>
-            แล้วพิมพ์“ ระดับ 3 ” เข้าไปในช่องแชท<br><br>
-            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline; font-weight: 500;">
-              คลิกที่นี่เพื่อพูดคุยกับเราใน LINE
-            </a>
-          </div>
-          <div class="nav-buttons">
-            <button class="nav-btn prev-btn" id="back-to-9q-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
-            <button class="nav-btn next-btn" id="to-home">กลับสู่หน้าหลัก</button>
-          </div>
         </div>
       </div>
     </div>
+
+    
+<div class="page" id="9q-thankyou-page">
+  <div class="sub-container">
+    <div class="question-container">
+      <div class="result-message" style="text-align: center;">
+        <b style="font-size: 1.3rem;">ขอบคุณที่เปิดใจตอบคำถามเหล่านี้ 💙</b><br><br>
+        บางความรู้สึกอาจหนัก <br>
+        แต่คุณไม่ได้แบกมันคนเดียวอีกต่อไป<br>
+        เราได้เตรียม “คำแนะนำในการดูแลใจ” <br>
+        ที่เหมาะกับความรู้สึกของคุณไว้แล้ว<br>
+        พร้อมฟังคุณเสมอ<br>
+            <br>
+            <a href="https://lin.ee/zISATbZ" target="_blank" style="color: #2196f3; text-decoration: underline;">กดที่นี่เพื่อรับคำแนะนำการผ่อนคลายเฉพาะตัวคุณ</a>
+            <br>แล้วพิมพ์ในช่องแชทว่า “ระดับ 3”<br><br>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-btn prev-btn" id="back-to-9q-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
+        <button class="nav-btn next-btn" id="to-home">กลับสู่หน้าหลัก</button>
+      </div>
+    </div>
+    <button class="fab-restart" id="restart-assessment-fab-3" style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#3498db;color:#fff;border:none;border-radius:50px;padding:16px 24px;font-size:1.05rem;box-shadow:0 2px 8px rgba(52,152,219,0.18);cursor:pointer;display:flex;align-items:center;gap:8px;">
+      <i class="fas fa-redo"></i> ทำแบบทดสอบอีกครั้ง
+    </button>
+  </div>
+</div>
 
     <!-- 9Q Honest Result Page -->
     <div class="page" id="9q-honest-result-page">
@@ -712,7 +795,7 @@
 
     <!-- Final Result Page -->
     <div class="page" id="final-result-page">
-      <div class="sub-container" style="max-width: 480px; margin: 36px auto; border-radius: 18px; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10); padding: 32px 20px;">
+      <div class="sub-container" style="max-width: 480px; margin: 36px auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10); padding: 32px 20px;">
         <div class="question-container">
           <div class="header">
             <h1>ผลประเมินสุขภาพจิตของคุณ</h1>
@@ -725,10 +808,13 @@
           <div class="help-contacts">
             <h3>ช่องทางการติดต่อหากต้องการความช่วยเหลือ</h3>
             <ul>
-
-              <li>ศูนย์สุขภาพแห่งมหาวิทยาลัยหัวเฉัยวเฉลิมพระเกียรติ<br>(HCU Health Center) โทร: 08-960-10089</li>
-              <li>สายด่วนสุขภาพจิต: 1323</li>
-              <li>สมาคมสะมาริตันส์: 02-713-6793</li>
+              <li>
+                <b>Hcu Counseling service</b><br>
+                📝 ลงทะเบียนรับบริการผ่านฟอร์ม: 
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScgy8aIupDeh2V6a6O3sM0--Zqf3iFU2LUhuDie283402d4eQ/viewform" target="_blank" style="color: #2196f3; text-decoration: underline;">
+                  👉 คลิกที่นี่เพื่อกรอกฟอร์ม
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -738,6 +824,7 @@
           </div>
 
           <div class="nav-buttons">
+            <button class="nav-btn prev-btn" id="back-to-previous-result"><i class="fas fa-arrow-left"></i> ย้อนกลับ</button>
             <button class="nav-btn next-btn" id="restart-assessment">ทำแบบประเมินใหม่ <i class="fas fa-redo"></i></button>
           </div>
         </div>

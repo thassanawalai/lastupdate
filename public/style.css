@@ -858,7 +858,7 @@ select.form-input {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-  #final-result-content {
+  #final-result_content {
     font-size: 1rem;
   }
   #final-result-page .help-contacts {
@@ -890,10 +890,32 @@ select.form-input {
     padding: 12px 0;
   }
 }
-.result-message {
-  font-size: 1.2rem !important;
-  line-height: 2 !important;
-  text-align: center !important;
-  color: #444;
-  margin-bottom: 30px;
+
+/* Before Page & Before2 Page */
+#before-page .sub-container,
+#before2-page .sub-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 32px 0 28px 0;
+}
+#before-page .question-container,
+#before2-page .question-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 32px 0 28px 0;
+  max-width: 420px;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  #before-page .question-container,
+  #before2-page .question-container {
+    max-width: 98vw;
+    padding: 18px 4vw 18px 4vw;
+  }
+  #before-page .sub-container,
+  #before2-page .sub-container {
+    padding: 18px 4vw 18px 4vw;
+  }
 }
