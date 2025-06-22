@@ -663,7 +663,8 @@ function initApp() {
   musicManager.playMusic();
   pageManager.init();
 
-  pageManager.showPage('welcome-page');
+  // เปลี่ยนหน้าแรกเป็น intro-page แทน welcome-page
+  pageManager.showPage('intro-page');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -702,7 +703,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Use navMap for all other next-btns
       if (window.pageManager && typeof pageManager.showPage === 'function') {
         const navMap = pageManager?.navMap || {
-          // fallback navMap (should match the one in setupNavigation)
+          // fallback navMap (ควรมี to-welcome-page ด้วย)
+          'to-welcome-page': 'welcome-page',
           'to-tree-page': 'tree-page',
           'to-personal-info-page': 'personal-info-page',
           'to-age-page': 'age-page',
