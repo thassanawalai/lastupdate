@@ -645,7 +645,7 @@ const assessmentCalculator = {
         submissionData._id = appState.formData._id;
       }
 
-      const response = await fetch('https://general-health-questionnaire-hcu.onrender.com/submit', ...{
+      const response = await fetch('https://general-health-questionnaire-hcu.onrender.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submissionData)
