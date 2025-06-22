@@ -543,15 +543,15 @@ const assessmentCalculator = {
       }
       scoreElement.textContent = score + ' คะแนน';
       let gentleMessages = [
-        'แบบประเมินเมื่อครู่นี้บอกเราว่า…<br> ตอนนี้คุณอาจกำลังเผชิญกับความรู้สึกเศร้าในระดับที่ไม่ง่ายนัก<br>ก่อนที่เราจะไปต่อ เราอยากบอกคุณว่า…<br>ไม่ว่าสิ่งที่คุณรู้สึกจะเข้มข้นแค่ไหน<br>คุณไม่ได้แปลก และคุณไม่ได้อยู่คนเดียว…<br>แบบประเมินถัดไปจะช่วยให้เราเข้าใจว่า สิ่งที่คุณเผชิญ <br>“กระทบกับการใช้ชีวิตประจำวัน” แค่ไหน ถ้าคุณพร้อม <br>เราจะพาคุณไปอย่างค่อยเป็นค่อยไป ด้วยความอ่อนโยนทุกคำถาม',
-        'การตัดสินใจของคุณบอกอะไรกับเราไว้หลายอย่างแล้วใน 9Q <br> และคุณทำได้ดีมากที่ตอบมันอย่างจริงใจ <br>ถัดจากนี้คือคำถามอีกชุด ที่จะช่วยให้เราดูแลคุณได้รอบด้านยิ่งขึ้น <br>เพราะบางครั้ง ความเศร้าไม่ได้หยุดแค่ในใจ<br>แต่มันอาจเริ่มกระทบการใช้ชีวิต การนอน การกิน <br>หรือแม้แต่ความรู้สึกปลอดภัยของคุณเอง<br>เราอยากเชิญคุณทำแบบประเมินนี้ด้วยกัน ไม่ใช่เพื่อวินิจฉัย<br>แต่เพื่อ “อยู่กับคุณ” ตรงนี้ให้ชัดเจนยิ่งกว่าเดิม',
-        'บางครั้ง ความรู้สึกที่อยู่ซุกซ่อนอยู่ภายในมันยังคงอยู่ <br>และบั่นทอนอารมณ์ ความรู้สึกเราเงียบๆ<br>แบบประเมินถัดไปอาจแตะบางจุดที่คุณเคยหลบสายตา <br>ถ้ามันรู้สึกหนัก…หยุดพักได้เสมอ ไม่มีใครเร่ง ไม่มีใครบังคับ <br>แต่ถ้าคุณพร้อม…ลองให้โอกาสตัวเองได้ซื่อสัตย์กับ <br>“ความรู้สึกลึก ๆ” ตรงนั้นอีกนิด<br>แล้วเราจะฟังคุณต่อไปอย่างเบาที่สุด'
+        '<span class="gentle-message-small">แบบประเมินเมื่อครู่นี้บอกเราว่า…<br> ตอนนี้คุณอาจกำลังเผชิญกับความรู้สึกเศร้าในระดับที่ไม่ง่ายนัก<br>ก่อนที่เราจะไปต่อ เราอยากบอกคุณว่า…<br>ไม่ว่าสิ่งที่คุณรู้สึกจะเข้มข้นแค่ไหน<br>คุณไม่ได้แปลก และคุณไม่ได้อยู่คนเดียว…<br>แบบประเมินถัดไปจะช่วยให้เราเข้าใจว่า สิ่งที่คุณเผชิญ <br>“กระทบกับการใช้ชีวิตประจำวัน” แค่ไหน ถ้าคุณพร้อม <br>เราจะพาคุณไปอย่างค่อยเป็นค่อยไป ด้วยความอ่อนโยนทุกคำถาม</span>',
+        '<span class="gentle-message-small">การตัดสินใจของคุณบอกอะไรกับเรา<br> ไว้หลายอย่างแล้วใน 9Q <br> และคุณทำได้ดีมากที่ตอบมันอย่างจริงใจ <br>ถัดจากนี้คือคำถามอีกชุด<br>  ที่จะช่วยให้เราดูแลคุณได้รอบด้านยิ่งขึ้น <br>เพราะบางครั้ง ความเศร้าไม่ได้หยุดแค่ในใจ<br>แต่มันอาจเริ่มกระทบการใช้ชีวิต <br> การนอน การกิน <br>หรือแม้แต่ความรู้สึกปลอดภัย<br>เราอยากเชิญคุณทำแบบประเมินนี้ด้วยกัน <br> ไม่ใช่เพื่อวินิจฉัย<br>แต่เพื่อ “อยู่กับคุณ” ตรงนี้ให้ชัดเจนยิ่งกว่าเดิม</span>',
+        '<span class="gentle-message-small">บางครั้ง <br> ความรู้สึกที่อยู่ซุกซ่อนอยู่ภายในมันยังคงอยู่ <br>และบั่นทอนอารมณ์ ความรู้สึกเราเงียบๆ<br>แบบประเมินถัดไปอาจ<br> แตะบางจุดที่คุณเคยหลบสายตา <br>ถ้ามันรู้สึกหนัก…หยุดพักได้เสมอ ไม่มีใครเร่ง ไม่มีใครบังคับ <br>แต่ถ้าคุณพร้อม…ลองให้โอกาสตัวเองได้ซื่อสัตย์กับ <br>“ความรู้สึกลึก ๆ” ตรงนั้นอีกนิด<br>แล้วเราจะฟังคุณต่อไปอย่างเบาที่สุด</span>'
       ];
       let randomMsg = '';
       if (score > 7) {
         randomMsg = gentleMessages[Math.floor(Math.random() * gentleMessages.length)];
       }
-      messageElement.innerHTML = `<b>${summary}</b><br><br>${randomMsg.replace(/\n/g, '<br>')}`;
+      messageElement.innerHTML = `<b>${summary}</b><br><br><span class="gentle-message-small">${randomMsg.replace(/\n/g, '<br>')}</span>`;
     } else {
       // ถ้า score > 7 ให้ไปหน้า honest
       if (score > 7) {
@@ -585,19 +585,19 @@ const assessmentCalculator = {
 
     if (finalResultElement) {
       finalResultElement.innerHTML = `
-        <div class="result-section">
-          <h3>ข้อมูลส่วนตัว</h3>
-          <b>ชื่อ:</b> ${nickname ? nickname : 'ไม่ได้ระบุ'}<br>
-          <b>อายุ:</b> ${age ? age : 'ไม่ได้ระบุ'}
+        <div class="result-section final-result-section" style="max-width: 420px; margin: 0 auto; padding: 12px 6px; box-sizing: border-box; word-break: break-word; font-size: 0.98rem;">
+          <h3 style="font-size: 1.02rem; margin-bottom: 8px;">ข้อมูลส่วนตัว</h3>
+          <b>ชื่อ:</b> <span style="word-break: break-all;">${nickname ? nickname : 'ไม่ได้ระบุ'}</span><br>
+          <b>อายุ:</b> <span style="word-break: break-all;">${age ? age : 'ไม่ได้ระบุ'}</span>
         </div>
-        <div class="result-section">
-          <h3>ผลการประเมิน ST-5</h3>
-          <b>คะแนน:</b> ${st5Score}
+        <div class="result-section final-result-section" style="max-width: 420px; margin: 0 auto; padding: 12px 6px; box-sizing: border-box; word-break: break-word; font-size: 0.98rem;">
+          <h3 style="font-size: 1.02rem; margin-bottom: 8px;">ผลการประเมิน ST-5</h3>
+          <b>คะแนน:</b> <span style="word-break: break-all;">${st5Score}</span>
         </div>
-        <div class="result-section">
-          <h3>ผลการประเมิน 9Q</h3>
-          <b>คะแนน:</b> ${nineQScore}<br>
-          ${this.get9QMessage(nineQScore)}
+        <div class="result-section final-result-section" style="max-width: 420px; margin: 0 auto; padding: 12px 6px; box-sizing: border-box; word-break: break-word; font-size: 0.98rem;">
+          <h3 style="font-size: 1.02rem; margin-bottom: 8px;">ผลการประเมิน 9Q</h3>
+          <b>คะแนน:</b> <span style="word-break: break-all;">${nineQScore}</span><br>
+          <div style="font-size: 0.95rem; word-break: break-word;">${this.get9QMessage(nineQScore)}</div>
         </div>
       `;
     }
@@ -918,6 +918,29 @@ function validateCurrentPage(pageId) {
   }
   return true;
 }
+
+// --- Restart Assessment FAB (ทำแบบประเมินใหม่) ---
+function handleRestartAssessment() {
+  if (window.pageManager && typeof pageManager.resetApp === 'function') {
+    pageManager.resetApp();
+  }
+  if (window.pageManager && typeof pageManager.showPage === 'function') {
+    pageManager.showPage('welcome-page');
+  }
+}
+
+// Attach event listener for all restart assessment buttons (by class or id)
+document.body.addEventListener('click', function(e) {
+  // Support both id and class for flexibility
+  if (
+    e.target.closest('#restart-assessment-fab') ||
+    e.target.closest('#restart-assessment-fab-2') ||
+    e.target.closest('#restart-assessment-fab-3') ||
+    e.target.closest('.restart-assessment-fab')
+  ) {
+    handleRestartAssessment();
+  }
+});
 
 document.body.addEventListener('click', function (e) {
   const btn = e.target.closest('button');
