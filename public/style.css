@@ -202,7 +202,7 @@ select.form-input {
   border: 1px solid #add8e6;
   padding: 15px 20px;
   border-radius: 12px;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -210,24 +210,26 @@ select.form-input {
   max-width: 340px;
   width: 100%;
   min-height: 48px;
-  height: 48px;
+  height: auto; /* เปลี่ยนจาก 48px เป็น auto */
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-}
-
-.feeling-option[data-value="3"] {
-  font-size: 0.76rem;
+  white-space: normal;         /* เพิ่ม */
+  word-break: break-word;      /* เพิ่ม */
+  overflow-wrap: break-word;   /* เพิ่ม */
 }
 
 .feeling-option:hover {
-  background-color: rgba(224, 242, 247, 0.9);
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
 }
 
 .feeling-option.selected {
-  background-color: #6495ed;
-  color: white;
-  border-color: #6495ed;
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(90, 155, 213, 0.3);
 }
 
 .checkbox-options {
@@ -351,6 +353,30 @@ select.form-input {
   animation: fadeIn 0.5s ease;
 }
 
+/* Center content for all .page containers */
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  text-align: center;
+}
+
+/* Center text inside the main content box (if any specific class, e.g. .main-content, add here) */
+.page > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .page {
+    min-height: 70vh;
+    padding: 8px;
+  }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -420,13 +446,14 @@ select.form-input {
   border-radius: 10px;
   padding: 20px;
   margin-top: 30px;
+  font-size: 0.92rem;
 }
 
 .help-contacts h3 {
   color: #4682b4;
   margin-top: 0;
   margin-bottom: 15px;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
 }
 
 .help-contacts ul {
@@ -438,7 +465,7 @@ select.form-input {
 .help-contacts ul li {
   margin-bottom: 8px;
   color: #555;
-  font-size: 1rem;
+  font-size: 0.92rem;
 }
 
 .quote {
@@ -1015,4 +1042,85 @@ select.form-input {
     border-radius: 8px;
   }
 }
+
 /* ----------- End Intro Page ----------- */
+
+/* ลดขนาดตัวอักษรในหน้า final-result-page ทั้งหมด */
+#final-result-page, #final-result-page * {
+  font-size: 0.92rem !important;
+}
+
+/* ปรับให้เนื้อหาทั้งหมดในหน้า final-result-page อยู่ในกรอบ โดยกำหนด max-width, margin, padding, และ background ให้กับ .sub-container ของหน้า final-result-page และจัด text-align center ให้กับทุกองค์ประกอบหลักในกรอบนี้ */
+#final-result-page .sub-container {
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+#final-result-page .question-container,
+#final-result-page .header,
+#final-result-page .result-section,
+#final-result-page .help-contacts,
+#final-result-page .quote,
+#final-result-page .nav-buttons,
+#final-result-page #final-result-content {
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+#final-result-page .help-contacts {
+  overflow-x: auto;
+}
+
+/* จัดรูปใน contact-info-page ให้อยู่กลางกรอบ */
+#contact-info-page .question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  width: 100%;
+  text-align: center;
+}
+
+#contact-info-page .contact-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+#contact-info-page .contact-images img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 340px;
+  width: 98vw;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(52,152,219,0.10);
+}
+
+#contact-info-page {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+}
+
+#contact-info-page .sub-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(52,152,219,0.10), 0 1.5px 6px 0 rgba(44,62,80,0.08);
+  padding: 24px 8px 18px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
