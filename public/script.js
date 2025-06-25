@@ -493,8 +493,8 @@ const assessmentCalculator = {
     if (score >= 1) {
       const honestMessages = [
         'จากคำตอบของคุณ…ดูเหมือนภายในใจของคุณ<br>กำลังบอกอะไรบางอย่างกับเรา<br>บางที คุณอาจกำลังต้องการให้ใครสักคน <br>“ที่รับฟังอย่างเข้าใจ”<br>แบบประเมินถัดไปจะช่วยให้คุณได้ฟังเสียงภายในใจตัวเอง<br>ลึกขึ้นอีกนิดไม่ใช่เพื่อหาว่าคุณผิดตรงไหน<br>แต่เพื่อให้คุณได้รู้ว่า…“ความรู้สึกแบบนี้” <br>มีที่ของมันเสมอ และไม่จำเป็นต้องซ่อน',
-        'คุณตอบคำถามที่ผ่านมาอย่างกล้าหาญมากและตรงนี้…<br>คืออีกหนึ่งก้าวที่อาจทำให้คุณเข้าใจหัวใจตัวเองมากขึ้น <br>ไม่มีอะไรน่ากลัวในแบบประเมินถัดไป <br>มีแค่ “เรา” ที่จะอยู่ตรงนี้<br>พร้อมฟังคุณทุกคำตอบ <br>โดยไม่ตัดสินเลยแม้แต่นิดเดียว',
-        'ถ้าใจคุณกำลังเหนื่อย…<br>แบบประเมินต่อไปนี้ไม่ได้มีไว้ตอกย้ำ<br>แต่มันมีไว้ให้คุณ “แสดงออกมา”เป็นพื้นที่ปลอดภัย <br>เพราะทุกความรู้สึกที่คุณมี มีความหมาย <br>และควรได้รับการรับฟัง <br>ถ้าคุณพร้อม…เราจะก้าวไปด้วยกัน'
+        'คุณตอบคำถามที่ผ่านมาอย่างกล้าหาญมากและตรงนี้…<br>คืออีกหนึ่งก้าวที่อาจทำให้คุณเข้าใจ หัวใจ ตัวเองมากขึ้น <br>ไม่มีอะไรน่ากลัวในแบบประเมินถัดไป <br>มีแค่ “เรา” ที่จะอยู่ตรงนี้<br>พร้อมฟังคุณทุกคำตอบ <br>โดยไม่ตัดสินเลย แม้แต่นิดเดียว',
+        'ถ้าใจคุณกำลังเหนื่อย…<br>แบบประเมินต่อไปนี้ไม่ได้มีไว้ตอกย้ำ<br>แต่มันมีไว้ให้คุณ“แสดงออกมา”เป็นพื้นที่ปลอดภัย <br>เพราะทุกความรู้สึกที่คุณมี มีความหมาย <br>และควรได้รับการรับฟัง <br>ถ้าคุณพร้อม… เราจะก้าวไปด้วยกัน'
       ];
       const msg = honestMessages[Math.floor(Math.random() * honestMessages.length)];
       const honestMsgElem = document.getElementById('2q-honest-message');
@@ -543,9 +543,7 @@ const assessmentCalculator = {
       }
       scoreElement.textContent = score + ' คะแนน';
       let gentleMessages = [
-        '<span class="gentle-message-small">แบบประเมินเมื่อครู่นี้บอกเราว่า…<br> ตอนนี้คุณอาจกำลังเผชิญกับความรู้สึกเศร้าในระดับที่ไม่ง่ายนัก<br>ก่อนที่เราจะไปต่อ เราอยากบอกคุณว่า…<br>ไม่ว่าสิ่งที่คุณรู้สึกจะเข้มข้นแค่ไหน<br>คุณไม่ได้แปลก และคุณไม่ได้อยู่คนเดียว…<br>แบบประเมินถัดไปจะช่วยให้เราเข้าใจว่า สิ่งที่คุณเผชิญ <br>“กระทบกับการใช้ชีวิตประจำวัน” แค่ไหน ถ้าคุณพร้อม <br>เราจะพาคุณไปอย่างค่อยเป็นค่อยไป ด้วยความอ่อนโยนทุกคำถาม</span>',
-        '<span class="gentle-message-small">การตัดสินใจของคุณบอกอะไรกับเรา<br> ไว้หลายอย่างแล้วใน 9Q <br> และคุณทำได้ดีมากที่ตอบมันอย่างจริงใจ <br>ถัดจากนี้คือคำถามอีกชุด<br>  ที่จะช่วยให้เราดูแลคุณได้รอบด้านยิ่งขึ้น <br>เพราะบางครั้ง ความเศร้าไม่ได้หยุดแค่ในใจ<br>แต่มันอาจเริ่มกระทบการใช้ชีวิต <br> การนอน การกิน <br>หรือแม้แต่ความรู้สึกปลอดภัย<br>เราอยากเชิญคุณทำแบบประเมินนี้ด้วยกัน <br> ไม่ใช่เพื่อวินิจฉัย<br>แต่เพื่อ “อยู่กับคุณ” ตรงนี้ให้ชัดเจนยิ่งกว่าเดิม</span>',
-        '<span class="gentle-message-small">บางครั้ง <br> ความรู้สึกที่อยู่ซุกซ่อนอยู่ภายในมันยังคงอยู่ <br>และบั่นทอนอารมณ์ ความรู้สึกเราเงียบๆ<br>แบบประเมินถัดไปอาจ<br> แตะบางจุดที่คุณเคยหลบสายตา <br>ถ้ามันรู้สึกหนัก…หยุดพักได้เสมอ ไม่มีใครเร่ง ไม่มีใครบังคับ <br>แต่ถ้าคุณพร้อม…ลองให้โอกาสตัวเองได้ซื่อสัตย์กับ <br>“ความรู้สึกลึก ๆ” ตรงนั้นอีกนิด<br>แล้วเราจะฟังคุณต่อไปอย่างเบาที่สุด</span>'
+        '<span class="gentle-message-small">ถ้าคุณรู้สึกมาถึงจุดนี้แล้ว <br>เราอยากแนะนำว่าสิ่งที่คุณกำลังเผชิญอยู่<br>อาจเป็นเรื่องที่ยากเกินกว่าที่จะจัดการเพียงลำพัง<br> การพบผู้เชี่ยวชาญจะช่วยให้คุณได้รับการดูแลและแนวทางที่เหมาะสม<br> เพื่อฟื้นฟูใจอย่างถูกต้องและอ่อนโยน</span>',
       ];
       let randomMsg = '';
       if (score > 7) {
@@ -663,8 +661,8 @@ function initApp() {
   musicManager.playMusic();
   pageManager.init();
 
-  // เปลี่ยนหน้าแรกเป็น intro-page แทน welcome-page
-  pageManager.showPage('intro-page');
+  // เปลี่ยนหน้าแรกเป็น Frist-page แทน intro-page
+  pageManager.showPage('Frist-page');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -682,11 +680,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentPage = document.querySelector('.page.active');
       if (currentPage) {
         const pageId = currentPage.id;
-        if (!validateCurrentPage(pageId)) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          return false;
-        }
+        // ปิด validation ชั่วคราวเพื่อให้กดถัดไปได้ทุกหน้า
+        // if (!validateCurrentPage(pageId)) {
+        //   e.preventDefault();
+        //   e.stopImmediatePropagation();
+        //   return false;
+        // }
       }
 
       // Special case for start-btn (play music and go to rama9-page)
@@ -696,6 +695,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (window.pageManager && typeof pageManager.showPage === 'function') {
           pageManager.showPage('rama9-page');
+        }
+        return;
+      }
+
+      // Special case for Frist-page next button
+      if (id === 'to-intro-page') {
+        if (window.pageManager && typeof pageManager.showPage === 'function') {
+          pageManager.showPage('intro-page');
         }
         return;
       }
@@ -1007,5 +1014,20 @@ function showPage(pageId) {
     next.style.display = '';
   }
 }
+
+// ให้เพลงเล่นเมื่อผู้ใช้มีการโต้ตอบครั้งแรก
+(function enableMusicOnUserInteraction() {
+  function playMusicOnce() {
+    if (DOM.bgMusic && DOM.bgMusic.paused) {
+      DOM.bgMusic.play().catch(() => {});
+      appState.music.isPlaying = true;
+      DOM.musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+    document.removeEventListener('click', playMusicOnce);
+    document.removeEventListener('touchstart', playMusicOnce);
+  }
+  document.addEventListener('click', playMusicOnce);
+  document.addEventListener('touchstart', playMusicOnce);
+})();
 
 window.pageManager = pageManager;
