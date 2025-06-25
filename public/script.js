@@ -102,6 +102,9 @@ const pageManager = {
       appState.currentPage = pageId;
 
       this.loadPageData(pageId);
+
+      // เพิ่มบรรทัดนี้
+      this.setupQuestionHandlers();
     } else {
       console.error(`Page with ID ${pageId} not found`);
     }
@@ -383,7 +386,6 @@ const pageManager = {
     document.querySelectorAll('.feeling-option').forEach(option => {
       option.addEventListener('click', () => {
         const value = option.dataset.value;
-
         if (option.classList.contains('selected')) {
           option.classList.remove('selected');
           if (appState.formData.reflection.selectedOption === value) {
