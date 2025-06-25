@@ -1073,3 +1073,46 @@ select.form-input {
 #final-result-page .help-contacts {
   overflow-x: auto;
 }
+
+/* จัดรูปใน contact-info-page ให้อยู่กลางกรอบ */
+#contact-info-page .question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  width: 100%;
+  text-align: center;
+}
+
+#contact-info-page .contact-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+#contact-info-page .contact-images img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 340px;
+  width: 98vw;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(52,152,219,0.10);
+}
+
+#contact-info-page {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+}
+
+#contact-info-page .sub-container {
+  margin: 0 auto;
+}
