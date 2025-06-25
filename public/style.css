@@ -202,7 +202,7 @@ select.form-input {
   border: 1px solid #add8e6;
   padding: 15px 20px;
   border-radius: 12px;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -210,24 +210,26 @@ select.form-input {
   max-width: 340px;
   width: 100%;
   min-height: 48px;
-  height: 48px;
+  height: auto; /* เปลี่ยนจาก 48px เป็น auto */
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-}
-
-.feeling-option[data-value="3"] {
-  font-size: 0.76rem;
+  white-space: normal;         /* เพิ่ม */
+  word-break: break-word;      /* เพิ่ม */
+  overflow-wrap: break-word;   /* เพิ่ม */
 }
 
 .feeling-option:hover {
-  background-color: rgba(224, 242, 247, 0.9);
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
 }
 
 .feeling-option.selected {
-  background-color: #6495ed;
-  color: white;
-  border-color: #6495ed;
+  background-color: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(90, 155, 213, 0.3);
 }
 
 .checkbox-options {
