@@ -670,6 +670,18 @@ function initApp() {
 document.addEventListener('DOMContentLoaded', function() {
   initApp();
 
+  // เพิ่ม event สำหรับปุ่มเริ่มทำแบบทดสอบ
+  const startBtn = document.getElementById('start-btn');
+  if (startBtn) {
+    startBtn.addEventListener('click', function() {
+      musicManager.playMusic();
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  initApp();
+
   // Navigation for all .next-btn and .prev-btn
   document.body.addEventListener('click', function(e) {
     // NEXT BUTTONS
