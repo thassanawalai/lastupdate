@@ -1114,5 +1114,13 @@ select.form-input {
 }
 
 #contact-info-page .sub-container {
+  max-width: 400px;
   margin: 0 auto;
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(52,152,219,0.10), 0 1.5px 6px 0 rgba(44,62,80,0.08);
+  padding: 24px 8px 18px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
