@@ -127,12 +127,15 @@ body {
   min-height: 48px;
   height: 48px;
   box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(90, 155, 213, 0.2);
+  box-shadow: 0 6px 20px rgba(90, 155, 213, 0.25), 0 3px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 select.form-input {
@@ -171,22 +174,29 @@ select.form-input {
   max-width: 340px;
   width: 100%;
   min-height: 48px;
-  height: 48px;
+  height: auto;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15), 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .option-btn:hover {
   background-color: rgba(224, 224, 224, 0.9);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .option-btn.selected {
   background-color: var(--accent-color);
   color: white;
   border-color: var(--accent-color);
-  box-shadow: 0 2px 8px rgba(90, 155, 213, 0.3);
+  box-shadow: 0 8px 25px rgba(90, 155, 213, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
 .feeling-options {
@@ -210,26 +220,31 @@ select.form-input {
   max-width: 340px;
   width: 100%;
   min-height: 48px;
-  height: auto; /* เปลี่ยนจาก 48px เป็น auto */
+  height: auto;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  white-space: normal;         /* เพิ่ม */
-  word-break: break-word;      /* เพิ่ม */
-  overflow-wrap: break-word;   /* เพิ่ม */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15), 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .feeling-option:hover {
   background-color: var(--accent-color);
   color: #fff;
   border-color: var(--accent-color);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
 .feeling-option.selected {
   background-color: var(--accent-color);
   color: #fff;
   border-color: var(--accent-color);
-  box-shadow: 0 2px 8px rgba(90, 155, 213, 0.3);
+  box-shadow: 0 8px 25px rgba(90, 155, 213, 0.4), 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
 .checkbox-options {
@@ -251,14 +266,18 @@ select.form-input {
   max-width: 340px;
   width: 100%;
   min-height: 48px;
-  height: 48px;
+  height: auto;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .checkbox-option:hover {
   background-color: rgba(240, 240, 240, 0.9);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15), 0 3px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 .checkbox-option input[type="checkbox"] {
@@ -307,10 +326,10 @@ select.form-input {
 }
 
 .nav-btn {
-  min-width: 140px;
-  max-width: 180px;
-  width: 160px;
-  padding: 12px 0;
+  min-width: 180px;
+  max-width: 350px;
+  width: auto;
+  padding: 12px 16px;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
@@ -322,6 +341,9 @@ select.form-input {
   justify-content: center;
   gap: 8px;
   flex: 1;
+  white-space: nowrap;
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3), 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
 }
 
 .prev-btn {
@@ -335,12 +357,13 @@ select.form-input {
 }
 
 .nav-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(52, 152, 219, 0.4), 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .nav-btn:active {
-  transform: translateY(0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.25), 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .page {
@@ -731,11 +754,12 @@ select.form-input {
     min-width: 160px;
   }
   .nav-btn {
-    min-width: 110px !important;
-    max-width: 160px !important;
-    width: 120px !important;
-    font-size: 1rem !important;
-    padding: 10px 0 !important;
+    min-width: 120px !important;
+    max-width: 200px !important;
+    width: auto !important;
+    font-size: 0.9rem !important;
+    padding: 10px 12px !important;
+    white-space: nowrap !important;
   }
 }
 
@@ -803,11 +827,12 @@ select.form-input {
     padding: 10px 8px;
   }
   .nav-btn {
-    min-width: 90px !important;
-    max-width: 120px !important;
-    width: 100px !important;
-    font-size: 0.92rem !important;
-    padding: 8px 0 !important;
+    min-width: 100px !important;
+    max-width: 180px !important;
+    width: auto !important;
+    font-size: 0.9rem !important;
+    padding: 8px 10px !important;
+    white-space: nowrap !important;
   }
   .music-control {
     top: 8px;
@@ -852,11 +877,13 @@ select.form-input {
     min-height: 54px;
   }
   .nav-btn {
-    width: 4vw !important;
-    min-width: 80px !important;
-    max-width: 120px !important;
+    width: auto !important;
+    min-width: 90px !important;
+    max-width: 140px !important;
     margin: 0 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
+    padding: 8px 10px !important;
+    white-space: nowrap !important;
   }
   .result-score {
     font-size: 1.5rem;
@@ -1116,11 +1143,130 @@ select.form-input {
 #contact-info-page .sub-container {
   max-width: 400px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.97);
+  background: transparent;
   border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(52,152,219,0.10), 0 1.5px 6px 0 rgba(44,62,80,0.08);
+  box-shadow: none;
   padding: 24px 8px 18px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Floating action button styling */
+.fab-restart {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 24px;
+  font-size: 1.05rem;
+  font-family: 'Prompt', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3), 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.fab-restart:hover {
+  box-shadow: 0 12px 35px rgba(52, 152, 219, 0.4), 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  background-color: var(--accent-color);
+}
+
+.fab-restart:active {
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.25), 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Tree Page decorative styling */
+#tree-page .tree-decoration {
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+#tree-page .tree-decoration img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+#tree-page .tree-decoration img:first-child {
+  position: relative;
+  z-index: 1;
+  max-width: 90%;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+#tree-page .tree-decoration img:last-child {
+  position: relative;
+  z-index: 2;
+  max-width: 85%;
+  opacity: 0.8;
+  margin-top: -20px;
+  transform: translateY(-10px);
+}
+
+#tree-page .tree-decoration:hover img {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15), 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+#tree-page .welcome-message {
+  margin-top: 30px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Responsive design for tree decoration */
+@media (max-width: 768px) {
+  #tree-page .tree-decoration {
+    max-width: 95%;
+    margin: 15px auto;
+  }
+  
+  #tree-page .tree-decoration img:first-child {
+    max-width: 92%;
+    margin-bottom: 8px;
+  }
+  
+  #tree-page .tree-decoration img:last-child {
+    max-width: 88%;
+    margin-top: -15px;
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 480px) {
+  #tree-page .tree-decoration {
+    max-width: 98%;
+    margin: 10px auto;
+  }
+  
+  #tree-page .tree-decoration img:first-child {
+    max-width: 95%;
+    margin-bottom: 5px;
+  }
+  
+  #tree-page .tree-decoration img:last-child {
+    max-width: 90%;
+    margin-top: -10px;
+    transform: translateY(-5px);
+  }
+  
+  #tree-page .welcome-message {
+    margin-top: 20px;
+  }
 }

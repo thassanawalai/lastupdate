@@ -327,7 +327,7 @@ const pageManager = {
     }
 
     const twoQCheckboxes = document.querySelectorAll('input[name="twoQ"]');
-    const twoQNoneRadio = document.getElementById('2q-none');
+    const twoQNoneCheckbox = document.getElementById('2q-none');
 
     twoQCheckboxes.forEach(checkbox => {
       checkbox.addEventListener('change', (e) => {
@@ -336,50 +336,23 @@ const pageManager = {
           if (!appState.formData.assessments.twoQ.includes(value)) {
             appState.formData.assessments.twoQ.push(value);
           }
-          if (twoQNoneRadio) {
-            twoQNoneRadio.checked = false;
-            twoQNoneRadio.disabled = true;
+          if (twoQNoneCheckbox) {
+            twoQNoneCheckbox.checked = false;
           }
         } else {
           appState.formData.assessments.twoQ =
             appState.formData.assessments.twoQ.filter(item => item !== value);
-          if (
-            !Array.from(twoQCheckboxes).some(cb => cb.checked) &&
-            twoQNoneRadio
-          ) {
-            twoQNoneRadio.disabled = false;
-          }
         }
       });
     });
 
-    if (twoQNoneRadio) {
-      let lastNoneChecked = false;
-      twoQNoneRadio.addEventListener('mousedown', (e) => {
-        lastNoneChecked = twoQNoneChecked;
-      });
-      twoQNoneRadio.addEventListener('click', (e) => {
-        // ถ้ากดซ้ำที่ติ๊กอยู่ ให้ uncheck
-        if (lastNoneChecked) {
-          twoQNoneRadio.checked = false;
-          twoQCheckboxes.forEach(cb => {
-            cb.disabled = false;
-          });
-          e.preventDefault();
-          e.stopImmediatePropagation();
-        }
-      });
-      twoQNoneRadio.addEventListener('change', (e) => {
+    if (twoQNoneCheckbox) {
+      twoQNoneCheckbox.addEventListener('change', (e) => {
         if (e.target.checked) {
           twoQCheckboxes.forEach(cb => {
             cb.checked = false;
-            cb.disabled = true;
           });
           appState.formData.assessments.twoQ = [];
-        } else {
-          twoQCheckboxes.forEach(cb => {
-            cb.disabled = false;
-          });
         }
       });
     }
