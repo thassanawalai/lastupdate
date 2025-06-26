@@ -37,6 +37,26 @@ const musicManager = {
     DOM.bgMusic.volume = appState.music.volume;
     DOM.musicControl.addEventListener('click', this.toggleMusic.bind(this));
 
+    // Handle autoplay state
+    DOM.bgMusic.addEventListener('play', () => {
+      appState.music.isPlaying = true;
+      DOM.musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+      DOM.musicControl.classList.add('playing');
+    });
+
+    DOM.bgMusic.addEventListener('pause', () => {
+      appState.music.isPlaying = false;
+      DOM.musicControl.innerHTML = '<i class="fas fa-music"></i>';
+      DOM.musicControl.classList.remove('playing');
+    });
+
+    // Check if music is already playing due to autoplay
+    if (!DOM.bgMusic.paused) {
+      appState.music.isPlaying = true;
+      DOM.musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+      DOM.musicControl.classList.add('playing');
+    }
+
     if (DOM.musicToggleBtn) {
       DOM.musicToggleBtn.addEventListener('click', this.toggleMusicBtn.bind(this));
     }
@@ -48,22 +68,38 @@ const musicManager = {
     } else {
       this.playMusic();
     }
-    appState.music.isPlaying = !appState.music.isPlaying;
   },
 
   playMusic() {
-    DOM.bgMusic.play()
-      .then(() => {
-        DOM.musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-      })
-      .catch(error => {
-        console.error('Error playing music:', error);
-      });
+    if (DOM.bgMusic.paused) {
+      DOM.bgMusic.play()
+        .then(() => {
+          // State will be updated by event listener
+        })
+        .catch(error => {
+          console.error('Error playing music:', error);
+          appState.music.isPlaying = false;
+          DOM.musicControl.innerHTML = '<i class="fas fa-music"></i>';
+          DOM.musicControl.classList.remove('playing');
+        });
+    } else {
+      // Already playing, just update UI
+      appState.music.isPlaying = true;
+      DOM.musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+      DOM.musicControl.classList.add('playing');
+    }
   },
 
   pauseMusic() {
-    DOM.bgMusic.pause();
-    DOM.musicControl.innerHTML = '<i class="fas fa-music"></i>';
+    if (!DOM.bgMusic.paused) {
+      DOM.bgMusic.pause();
+      // State will be updated by event listener
+    } else {
+      // Already paused, just update UI
+      appState.music.isPlaying = false;
+      DOM.musicControl.innerHTML = '<i class="fas fa-music"></i>';
+      DOM.musicControl.classList.remove('playing');
+    }
   },
 
   setVolume(volume) {
