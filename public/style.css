@@ -1507,14 +1507,15 @@ select.form-input {
 #Frist-page .nav-btn.next-btn,
 #intro-page .nav-btn.next-btn,
 #welcome-page .nav-btn.next-btn {
-  display: block;
+  display: inline-flex;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: auto;
   max-width: 340px;
   min-width: 120px;
   text-align: center;
   justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 600px) {
