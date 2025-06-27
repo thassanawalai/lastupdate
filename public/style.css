@@ -1503,16 +1503,26 @@ select.form-input {
   background-repeat: no-repeat !important;
 }
 
-/* ปรับปุ่ม nav-btn ในหน้า Frist Page และ Intro Page ให้อยู่ตรงกลาง */
-#Frist-page .nav-btn,
-#intro-page .nav-btn {
-  font-size: 0.98rem;
+/* ปุ่ม "ต่อไป" อยู่ตรงกลางใน Frist, Intro, Welcome (ทุกขนาดจอ) */
+#Frist-page .nav-btn.next-btn,
+#intro-page .nav-btn.next-btn,
+#welcome-page .nav-btn.next-btn {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 350px;
-  min-width: 140px;
+  max-width: 340px;
+  min-width: 120px;
   text-align: center;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  #Frist-page .nav-btn.next-btn,
+  #intro-page .nav-btn.next-btn,
+  #welcome-page .nav-btn.next-btn {
+    max-width: 98vw;
+    min-width: 90px;
+    font-size: 1rem;
+  }
 }
