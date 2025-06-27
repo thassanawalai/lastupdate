@@ -1502,3 +1502,17 @@ select.form-input {
   background-position: center !important;
   background-repeat: no-repeat !important;
 }
+
+/* ปรับปุ่ม nav-btn ในหน้า Frist Page และ Intro Page ให้อยู่ตรงกลาง */
+#Frist-page .nav-btn,
+#intro-page .nav-btn {
+  font-size: 0.98rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 350px;
+  min-width: 140px;
+  text-align: center;
+  justify-content: center;
+}
